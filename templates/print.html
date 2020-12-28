@@ -1,0 +1,339 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    {% load static %}
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <!-- Mobile Web-app fullscreen -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="mobile-web-app-capable" content="yes">
+    <!-- Meta tags -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="{% static 'client/favicon.png' %}">
+    <!--Title-->
+    <title>Aeon Holidays & Resorts</title>
+    <!--CSS styles-->
+    <link rel="stylesheet" media="all" href="{% static 'client/css/bundle.min.css' %}"/>
+    <!--Google fonts-->
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:300,500&amp;subset=latin-ext" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Playfair+Display:400,700&amp;subset=latin-ext" rel="stylesheet">
+</head>
+<body>
+<div class="wrapper">
+    <header>
+        <!-- ==================  Navigation (main menu) ================== -->
+        <script type="text/javascript">
+            $(function () {
+
+                // Toggle menu
+                // ------------------------------------
+
+                $('.toggle-menu').on('click', function () {
+                    $(this).toggleClass('open');
+                    $(this).parent().find('.navigation-block').toggleClass('open');
+                });
+
+                var $box = $('.options-content .options .box');
+                $box.click(function () {
+                    var $this = $(this),
+                        $boxWrapper = $this.closest('.box-wrapper');
+
+                    if ($this.hasClass('active')) {
+                        $boxWrapper.removeClass('box-wrapper-selected');
+                        $this.removeClass('active');
+                    } else {
+                        $boxWrapper.addClass('box-wrapper-selected');
+                        $this.closest('.options-content').find('.box').removeClass('active');
+                        $this.addClass('active');
+                    }
+                });
+
+                // Mobile - Dropdown menu
+                // ------------------------------------
+
+                $('.open-dropdown').on('click', function (e) {
+
+                    e.preventDefault();
+
+                    if ($(document).width() >= 992) {
+                        return false;
+                    }
+
+                    var $this = $(this),
+                        $li = $this.closest('li'),
+                        $drop = $li.find('ul');
+
+                    $li.toggleClass('expanded');
+
+                    if ($li.hasClass('expanded')) {
+                        $drop.slideDown();
+                    } else {
+                        $drop.slideUp();
+                    }
+                });
+
+                // Desktop - Dropdown menu
+                //---------------------------
+
+                $('.navigation-block > ul > li').bind({
+                    mouseenter: function () {
+                        if ($(document).width() < 992) {
+                            return false;
+                        }
+                        $(this).addClass('hovered');
+                    },
+                    mouseleave: function () {
+                        if ($(document).width() < 992) {
+                            return false;
+                        }
+                        $(this).removeClass('hovered').removeAttr('class');
+                    },
+                });
+
+            });
+        </script>
+        <!-- ======================== Navigation ======================== -->
+        <div class="container">
+            <!-- === navigation-top === -->
+            <nav class="navigation-top clearfix">
+                <!-- navigation-top-left -->
+                <div class="navigation-top-left">
+                    <a class="box" href="#">
+                        <i class="icon icon-map-marker"></i>
+                        Kothagiri, Coimbatore
+                    </a>
+                    <!-- <a class="box" href="mailto:demo@gmail.com">
+                      <i class="fa fa-envelope" aria-hidden="true"></i>
+                      demo@gmail.com
+                      </a> -->
+                    <a class="box" href="tel:+919999999999">
+                        <i class="icon icon-phone-handset"></i>
+                        +91 9999 999 999
+                    </a>
+                </div>
+                <!-- navigation-top-right -->
+                <div class="navigation-top-right">
+                    <div class="topBarInLogoArea">
+                        <div class="topBarInLogoAreaCell">
+                  <span class="btIconWidget ">
+                  <span class="btIconWidgetContent">
+                  <span class="btIconWidgetText"><i class="icon icon-map-marker"></i> <span
+                          class="weather">Kothagiri</span></span>
+                  </span>
+                  </span>
+                            <span class="btIconWidget btWidgetWithText">
+                  <span class="btIconWidgetContent">
+                  <span class="btIconWidgetText">Today Weather <span class="weather">{{ temp }}°C</span></span>
+                  </span>
+                  </span>
+                        </div>
+                        <!-- /topBarInLogoAreaCell -->
+                    </div>
+                </div>
+            </nav>
+            <!-- === navigation-main === -->
+            <nav class="navigation-main clearfix">
+                <!-- logo -->
+                <div class="logo animated fadeIn">
+                    <a href="/">
+                        <img class="logo-desktop" src="{% static 'client/assets/images/logo.png' %}"
+                             alt="Alternate Text">
+                        <img class="logo-mobile" src="{% static 'client/assets/images/logo-mobile.png' %}"
+                             alt="Alternate Text">
+                    </a>
+                </div>
+                <!-- toggle-menu -->
+                <div class="toggle-menu"><i class="icon icon-menu"></i></div>
+                <!-- navigation-block -->
+                <div class="navigation-block clearfix">
+                    <!-- navigation-left -->
+                    <ul class="navigation-left">
+                        <li class="">
+                            <a href="/">Home <span class="open-dropdown"></span></a>
+                        </li>
+                        <li class="">
+                            <a href="/aboutUs">About us <span class="open-dropdown"></span></a>
+                        </li>
+                        <li>
+                            <a href="#">Rooms <span class="open-dropdown"><i class="fa fa-angle-down"></i></span></a>
+                            <ul>
+                                <li><a href="/HomeStay">Home Stay</a></li>
+                                <li><a href="/DeluxeRoom">Deluxe Room</a></li>
+                                <li><a href="/PremiumRoom">Premium Room</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                    <!-- navigation-right -->
+                    <ul class="navigation-right">
+                        <li>
+                            <a href="/facility">Facilities</a>
+                        </li>
+                        <li>
+                            <a href="/contactUs">Contact</a>
+                        </li>
+                        <li class="">
+                            <a href="/bookings">Book Now </a>
+                        </li>
+                    </ul>
+                </div>
+                <!--/navigation-block-->
+            </nav>
+        </div>
+        <!--/container-->
+    </header>
+    <!-- ========================  Checkout ======================== -->
+    <section class="page">
+        <!-- ===  Page header === -->
+        <div class="page-header" style="background-image:url({% static 'client/assets/images/header-1.jpg' %})">
+            <div class="container">
+                <h2 class="title">Reservation completed</h2>
+                <p>Thank you!</p>
+            </div>
+        </div>
+        <!-- ===  Checkout === -->
+        <div class="checkout">
+            <div class="container">
+                <div class="clearfix">
+                    <!-- ========================  Note block ======================== -->
+                    <div class="cart-wrapper">
+                        <div class="note-block">
+                            <div class="row">
+                                <!-- === left content === -->
+                                <div class="col-md-6">
+                                    <div class="white-block">
+                                        <div class="h4">Guest information</div>
+                                        <hr/>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <strong>Name</strong> <br/>
+                                                    <span>{{ user.firstName }} {{ user.lastName }}</span>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <strong>Email</strong><br/>
+                                                    <span>{{ user.mailID }}</span>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <strong>Phone</strong><br/>
+                                                    <span>{{ user.phoneNumber }}</span>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <strong>Zip</strong><br/>
+                                                    <span>{{ user.zipCode }}</span>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <strong>City</strong><br/>
+                                                    <span>{{ user.city }}</span>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <strong>Address</strong><br/>
+                                                    <span>{{ user.address }}</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!--/col-md-6-->
+                                </div>
+                                <!-- === right content === -->
+                                <div class="col-md-6">
+                                    <div class="white-block">
+                                        <div class="h4">Reservation details</div>
+                                        <hr/>
+                                        <div class="row">
+                                            <!---
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <strong>Order no.</strong> <br/>
+                                                    <span>{{ orderID }}</span>
+                                                </div>
+                                            </div>
+                                            ---->
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <strong>Transaction ID</strong> <br/>
+                                                    <span>{{ order.TXNID }}</span>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <strong>Bank Transaction ID</strong> <br/>
+                                                    <span>{{ order.BANKTXNID }}</span>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <strong>Booked Date</strong> <br/>
+                                                    <span>{{ order.fromDate }} - {{ order.toDate }}</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="h4">Payment details</div>
+                                        <hr/>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <strong>Transaction time</strong> <br/>
+                                                    <span>{{ order.TXNDATE }}</span>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <strong>Amount</strong><br/>
+                                                    <span>₹ {{ order.TXNAMOUNT }}</span>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <strong>Payment Bank Name</strong><br/>
+                                                    <span>{{ order.BANKNAME }}</span>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <strong>Room Details</strong><br/>
+                                                    {% for room in roomName %}
+                                                        <span>{{ room }}</span><br>
+                                                    {% endfor %}
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="clearfix">
+                                            <div class="cart-block cart-block-footer cart-block-footer-price clearfix">
+                                                <div>
+                                                    <a onclick="window.print()" class="btn btn-main pull-right">Print
+                                                        <span class="icon icon-printer"></span></a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--/container-->
+        </div>
+        <!--/checkout-->
+    </section>
+    <div class="inc:_footer.html"></div>
+</div>
+<!--/wrapper-->
+<!--JS files-->
+<script src="{% static 'client/js/bundle.min.js' %}"></script>
+
+</body>
+</html>

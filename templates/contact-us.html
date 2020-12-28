@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <!-- Mobile Web-app fullscreen -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="mobile-web-app-capable" content="yes">
+    <!-- Meta tags -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="{% static 'client/favicon.png' %}">
+    <!--Title-->
+    <title>Aeon Holidays & Resorts</title>
+    <!--CSS styles-->
+    <link rel="stylesheet" media="all" href="{% static 'client/css/bundle.min.css' %}"/>
+    <!--Google fonts-->
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:300,500&amp;subset=latin-ext" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Playfair+Display:400,700&amp;subset=latin-ext" rel="stylesheet">
+</head>
+<body>
+<div class="wrapper">
+    <header>
+        <!-- ==================  Navigation (main menu) ================== -->
+        <script type="text/javascript">
+            $(function () {
+
+                // Toggle menu
+                // ------------------------------------
+
+                $('.toggle-menu').on('click', function () {
+                    $(this).toggleClass('open');
+                    $(this).parent().find('.navigation-block').toggleClass('open');
+                });
+
+                var $box = $('.options-content .options .box');
+                $box.click(function () {
+                    var $this = $(this),
+                        $boxWrapper = $this.closest('.box-wrapper');
+
+                    if ($this.hasClass('active')) {
+                        $boxWrapper.removeClass('box-wrapper-selected');
+                        $this.removeClass('active');
+                    } else {
+                        $boxWrapper.addClass('box-wrapper-selected');
+                        $this.closest('.options-content').find('.box').removeClass('active');
+                        $this.addClass('active');
+                    }
+                });
+
+                // Mobile - Dropdown menu
+                // ------------------------------------
+
+                $('.open-dropdown').on('click', function (e) {
+
+                    e.preventDefault();
+
+                    if ($(document).width() >= 992) {
+                        return false;
+                    }
+
+                    var $this = $(this),
+                        $li = $this.closest('li'),
+                        $drop = $li.find('ul');
+
+                    $li.toggleClass('expanded');
+
+                    if ($li.hasClass('expanded')) {
+                        $drop.slideDown();
+                    } else {
+                        $drop.slideUp();
+                    }
+                });
+
+                // Desktop - Dropdown menu
+                //---------------------------
+
+                $('.navigation-block > ul > li').bind({
+                    mouseenter: function () {
+                        if ($(document).width() < 992) {
+                            return false;
+                        }
+                        $(this).addClass('hovered');
+                    },
+                    mouseleave: function () {
+                        if ($(document).width() < 992) {
+                            return false;
+                        }
+                        $(this).removeClass('hovered').removeAttr('class');
+                    },
+                });
+
+            });
+        </script>
+        <!-- ======================== Navigation ======================== -->
+        <div class="container">
+            <!-- === navigation-top === -->
+            <nav class="navigation-top clearfix">
+                <!-- navigation-top-left -->
+                <div class="navigation-top-left">
+                    <a class="box" href="#">
+                        <i class="icon icon-location"></i>
+                        Kothagiri, Coimbatore
+                    </a>
+                    <!-- <a class="box" href="mailto:demo@gmail.com">
+                    <i class="fa fa-envelope" aria-hidden="true"></i>
+                    demo@gmail.com
+                    </a> -->
+                    <a class="box" href="tel:+919999999999">
+                        <i class="icon icon-phone-handset"></i>
+                        +91 9999 999 999
+                    </a>
+                </div>
+                <!-- navigation-top-right -->
+                <div class="navigation-top-right">
+                    <div class="topBarInLogoArea">
+                        <div class="topBarInLogoAreaCell">
+                            <!-- <span class="btIconWidget ">
+                              <span class="btIconWidgetIcon">
+                                <span class="btIco btIcoDefaultType btIcoDefaultColor">
+                                  <a href="" target="_blank">
+                                    <span data-ico-s7="" class="btIcoHolder">
+                                    </span>
+                                  </a>
+                                </span>
+                              </span>
+                              <span class="btIconWidgetContent">
+                                <span class="btIconWidgetTitle">Sunvalley Homestay, Stanley Park,</span>
+                                <span class="btIconWidgetText">COONOOR OOTY</span>
+                              </span>
+                            </span> -->
+                            <span class="btIconWidget btWidgetWithText">
+              <span class="btIconWidgetContent">
+                <span class="btIconWidgetText">Today Weather {{ temp }}°C</span>
+              </span>
+            </span>
+                        </div>
+                        <!-- /topBarInLogoAreaCell -->
+                    </div>
+                </div>
+            </nav>
+            <!-- === navigation-main === -->
+            <nav class="navigation-main clearfix">
+                <!-- logo -->
+                <div class="logo animated fadeIn">
+                    <a href="/">
+                        <img class="logo-desktop" src="{% static 'client/assets/images/logo.png' %}"
+                             alt="Alternate Text">
+                        <img class="logo-mobile" src="{% static 'client/assets/images/logo-mobile.png' %}"
+                             alt="Alternate Text">
+                    </a>
+                </div>
+                <!-- toggle-menu -->
+                <div class="toggle-menu"><i class="icon icon-menu"></i></div>
+                <!-- navigation-block -->
+                <div class="navigation-block clearfix">
+                    <!-- navigation-left -->
+                    <ul class="navigation-left">
+                        <li class="">
+                            <a href="/">Home <span class="open-dropdown"></span></a>
+                        </li>
+                        <li class="">
+                            <a href="/aboutUs">About us <span class="open-dropdown"></span></a>
+                        </li>
+                        <li>
+                            <a href="#">Rooms <span class="open-dropdown"><i class="fa fa-angle-down"></i></span></a>
+                            <ul>
+                                <li><a href="/HomeStay">Home Stay</a></li>
+                                <li><a href="/DeluxeRoom">Deluxe Room</a></li>
+                                <li><a href="/PremiumRoom">Premium Room</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                    <!-- navigation-right -->
+                    <ul class="navigation-right">
+                        <li>
+                            <a href="/facility">Facilities</a>
+                        </li>
+                        <li>
+                            <a href="/contactUs">Contact</a>
+                        </li>
+                        <li class="">
+                            <a href="/bookings">Book Now </a>
+                        </li>
+                    </ul>
+                </div>
+                <!--/navigation-block-->
+            </nav>
+        </div>
+        <!--/container-->
+    </header>
+    <!-- ======================== Contact ======================== -->
+    <section class="page">
+        <!-- ===  Page header === -->
+        <div class="page-header" style="background-image:url({% static 'client/assets/images/header-1.jpg' %})">
+            <div class="container">
+                <h2 class="title">Contact</h2>
+                <p>The place, our services & our team</p>
+            </div>
+        </div>
+        <!-- ===  Contact === -->
+        <div class="contact">
+            <div class="container">
+                <!-- === Google map === -->
+                <div class="map" id="map"></div>
+                <div class="row">
+                    <div class="col-sm-10 col-sm-offset-1 col-md-10 col-md-offset-1">
+                        <!-- === Contact block === -->
+                        <div class="contact-block">
+                            <!-- === Contact banner === -->
+                            <div class="banner">
+                                <div class="row">
+                                    <div class="col-md-offset-1 col-md-10 text-center">
+                                        <h2 class="title">Send an email</h2>
+                                        <p>
+                                            Please use this form if you have any questions about our products <br/> and
+                                            we'll get back with you very soon.
+                                        </p>
+                                        <form action="#" method="post">
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <input type="text" value="" class="form-control"
+                                                               placeholder="Your name" required="required">
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <input type="email" value="" class="form-control"
+                                                               placeholder="Your email" required="required">
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-12">
+                                                    <div class="form-group">
+                                                        <input type="text" value="" class="form-control"
+                                                               placeholder="Subject" required="required">
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-12">
+                                                    <div class="form-group">
+                                                        <textarea class="form-control" placeholder="Your message"
+                                                                  rows="10"></textarea>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-12 text-center">
+                                                    <input type="submit" class="btn btn-clean" value="Send message"/>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- === Contact info === -->
+                            <div class="contact-info">
+                                <div class="row">
+                                    <div class="col-sm-4">
+                                        <figure class="text-center">
+                                            <span class="icon icon-map-marker"></span>
+                                            <figcaption>
+                                                <strong>Where are we?</strong>
+                                                <span>#21 Kotagiri Tamilnadu India</span>
+                                            </figcaption>
+                                        </figure>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <figure class="text-center">
+                                            <span class="icon icon-phone"></span>
+                                            <figcaption>
+                                                <strong>Call us</strong>
+                                                <span>
+                                          <strong>T</strong> +1 222 333 4444 <br/>
+                                          <strong>F</strong> +1 222 333 5555
+                                          </span>
+                                            </figcaption>
+                                        </figure>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <figure class="text-center">
+                                            <span class="icon icon-clock"></span>
+                                            <figcaption>
+                                                <strong>Working hours</strong>
+                                                <span>
+                                          <strong>Mon</strong> - Sat: 10 am - 6 pm <br/>
+                                          <strong>Sun</strong> 12pm - 2 pm
+                                          </span>
+                                            </figcaption>
+                                        </figure>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!--/contact-block-->
+                    </div>
+                    <!--col-sm-8-->
+                </div>
+                <!--/row-->
+            </div>
+            <!--/container-->
+        </div>
+        <!--/contact-->
+    </section>
+    <footer>
+        <div class="container">
+            <!--footer links-->
+            <div class="footer-links">
+                <div class="row">
+                    <div class="col-sm-6 footer-left">
+                        <a href="/contactUs">Contact us</a> &nbsp; | &nbsp; <a href="#">Privacy policy</a> | &nbsp; <a
+                            href="#">Guest
+                        book</a>
+                    </div>
+                    <div class="col-sm-6 footer-right">
+                        <a href="#">Gallery</a> &nbsp; | &nbsp; <a href="#">Reservations</a> | &nbsp; <a href="#">Help
+                        center</a>
+                    </div>
+                </div>
+            </div>
+            <!--footer social-->
+            <div class="footer-social">
+                <div class="row">
+                    <div class="col-sm-12 text-center hidden">
+                        <a href="" class="footer-logo"><img src="{% static 'client/assets/images/logo.png' %}"
+                                                            alt="Alternate Text"></a>
+                    </div>
+                    <div class="col-sm-12 icons">
+                        <ul>
+                            <li><a href="#"><i class="fa fa-facebook"></i></a></li>
+                            <li><a href="#"><i class="fa fa-twitter"></i></a></li>
+                            <li><a href="#"><i class="fa fa-google-plus"></i></a></li>
+                            <li><a href="#"><i class="fa fa-youtube"></i></a></li>
+                            <li><a href="#"><i class="fa fa-instagram"></i></a></li>
+                        </ul>
+                    </div>
+                    <div class="col-sm-12 copyright">
+                        <small>Copyright © 2020 &nbsp; | &nbsp; Aeson</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+</div>
+<!--/wrapper-->
+<!--JS files-->
+<script src="{% static 'client/js/bundle.min.js' %}"></script>
+</body>
+</html>

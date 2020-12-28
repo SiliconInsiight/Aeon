@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <!-- Mobile Web-app fullscreen -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="mobile-web-app-capable" content="yes">
+    <!-- Meta tags -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="{% static 'client/favicon.png' %}">
+    <!--Title-->
+    <title>Aeon Holidays & Resorts</title>
+    <!--CSS styles-->
+    <link rel="stylesheet" media="all" href="{% static 'client/css/bundle.min.css' %}"/>
+    <!--Google fonts-->
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:300,500&amp;subset=latin-ext" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Playfair+Display:400,700&amp;subset=latin-ext" rel="stylesheet">
+</head>
+<body>
+<div class="wrapper">
+    <header>
+        <!-- ==================  Navigation (main menu) ================== -->
+        <script type="text/javascript">
+            $(function () {
+
+                // Toggle menu
+                // ------------------------------------
+
+                $('.toggle-menu').on('click', function () {
+                    $(this).toggleClass('open');
+                    $(this).parent().find('.navigation-block').toggleClass('open');
+                });
+
+                var $box = $('.options-content .options .box');
+                $box.click(function () {
+                    var $this = $(this),
+                        $boxWrapper = $this.closest('.box-wrapper');
+
+                    if ($this.hasClass('active')) {
+                        $boxWrapper.removeClass('box-wrapper-selected');
+                        $this.removeClass('active');
+                    } else {
+                        $boxWrapper.addClass('box-wrapper-selected');
+                        $this.closest('.options-content').find('.box').removeClass('active');
+                        $this.addClass('active');
+                    }
+                });
+
+                // Mobile - Dropdown menu
+                // ------------------------------------
+
+                $('.open-dropdown').on('click', function (e) {
+
+                    e.preventDefault();
+
+                    if ($(document).width() >= 992) {
+                        return false;
+                    }
+
+                    var $this = $(this),
+                        $li = $this.closest('li'),
+                        $drop = $li.find('ul');
+
+                    $li.toggleClass('expanded');
+
+                    if ($li.hasClass('expanded')) {
+                        $drop.slideDown();
+                    } else {
+                        $drop.slideUp();
+                    }
+                });
+
+                // Desktop - Dropdown menu
+                //---------------------------
+
+                $('.navigation-block > ul > li').bind({
+                    mouseenter: function () {
+                        if ($(document).width() < 992) {
+                            return false;
+                        }
+                        $(this).addClass('hovered');
+                    },
+                    mouseleave: function () {
+                        if ($(document).width() < 992) {
+                            return false;
+                        }
+                        $(this).removeClass('hovered').removeAttr('class');
+                    },
+                });
+
+            });
+        </script>
+        <!-- ======================== Navigation ======================== -->
+        <div class="container">
+            <!-- === navigation-top === -->
+            <nav class="navigation-top clearfix">
+                <!-- navigation-top-left -->
+                <div class="navigation-top-left">
+                    <a class="box" href="#">
+                        <i class="icon icon-location"></i>
+                        Kothagiri, Coimbatore
+                    </a>
+                    <!-- <a class="box" href="mailto:demo@gmail.com">
+                    <i class="fa fa-envelope" aria-hidden="true"></i>
+                    demo@gmail.com
+                    </a> -->
+                    <a class="box" href="tel:+919999999999">
+                        <i class="icon icon-phone-handset"></i>
+                        +91 9999 999 999
+                    </a>
+                </div>
+                <!-- navigation-top-right -->
+                <div class="navigation-top-right">
+                    <div class="topBarInLogoArea">
+                        <div class="topBarInLogoAreaCell">
+                            <!-- <span class="btIconWidget ">
+                              <span class="btIconWidgetIcon">
+                                <span class="btIco btIcoDefaultType btIcoDefaultColor">
+                                  <a href="" target="_blank">
+                                    <span data-ico-s7="" class="btIcoHolder">
+                                    </span>
+                                  </a>
+                                </span>
+                              </span>
+                              <span class="btIconWidgetContent">
+                                <span class="btIconWidgetTitle">Sunvalley Homestay, Stanley Park,</span>
+                                <span class="btIconWidgetText">COONOOR OOTY</span>
+                              </span>
+                            </span> -->
+                            <span class="btIconWidget btWidgetWithText">
+              <span class="btIconWidgetContent">
+                <span class="btIconWidgetText">Today Weather {{ temp }}°C</span>
+              </span>
+            </span>
+                        </div>
+                        <!-- /topBarInLogoAreaCell -->
+                    </div>
+                </div>
+            </nav>
+            <!-- === navigation-main === -->
+            <nav class="navigation-main clearfix">
+                <!-- logo -->
+                <div class="logo animated fadeIn">
+                    <a href="/">
+                        <img class="logo-desktop" src="{% static 'client/assets/images/logo.png' %}"
+                             alt="Alternate Text">
+                        <img class="logo-mobile" src="{% static 'client/assets/images/logo-mobile.png' %}"
+                             alt="Alternate Text">
+                    </a>
+                </div>
+                <!-- toggle-menu -->
+                <div class="toggle-menu"><i class="icon icon-menu"></i></div>
+                <!-- navigation-block -->
+                <div class="navigation-block clearfix">
+                    <!-- navigation-left -->
+                    <ul class="navigation-left">
+                        <li class="">
+                            <a href="/">Home <span class="open-dropdown"></span></a>
+                        </li>
+                        <li class="">
+                            <a href="/aboutUs">About us <span class="open-dropdown"></span></a>
+                        </li>
+                        <li>
+                            <a href="#">Rooms <span class="open-dropdown"><i class="fa fa-angle-down"></i></span></a>
+                            <ul>
+                                <li><a href="/HomeStay">Home Stay</a></li>
+                                <li><a href="/DeluxeRoom">Deluxe Room</a></li>
+                                <li><a href="/PremiumRoom">Premium Room</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                    <!-- navigation-right -->
+                    <ul class="navigation-right">
+                        <li>
+                            <a href="/facility">Facilities</a>
+                        </li>
+                        <li>
+                            <a href="/contactUs">Contact</a>
+                        </li>
+                        <li class="">
+                            <a href="/bookings">Book Now </a>
+                        </li>
+                    </ul>
+                </div>
+                <!--/navigation-block-->
+            </nav>
+        </div>
+        <!--/container-->
+    </header>
+    <section class="page">
+        <!-- ===  Page header === -->
+        <div class="page-header" style="background-image:url({% static 'client/assets/images/header-1.jpg' %})">
+            <div class="container">
+                <!--   <h2 class="title">ABOUT US</h2> -->
+            </div>
+        </div>
+        <div class="image-blocks image-blocks-category">
+            <div class="container">
+                <div class="about">
+                    <!--text-block-->
+                    <div class="text-block">
+                        <div class="row">
+                            <div class="col-md-8 col-lg-offset-2">
+                                <h2>About Aeon Hotel</h2>
+                                <p>Nestled among the comforts of a lush 250-acre Tea plantation and surrounded by hills
+                                    on all sides, Aeon is truly a paradise with endless beauty and happiness.The resort
+                                    comprises a total of 3 luxurious rooms each offering incredible views of the tea
+                                    plantations.All the rooms comes along with a balcony facing tea gardens.There are 3
+                                    category of rooms in the property each offering different levels of luxury.The
+                                    subtly intoxicating aroma of Tea and the surrounding spices refreshes the whole mind
+                                    body and soul.</p>
+                                <p>Tuck your soul away in this nature’s green coat, indulge in the blissful sanctity of
+                                    peace or experience the adrenalin rush from the stimulating and exciting activities.
+                                    With reasons unlimited it is only fair to say ‘One trip is just not enough’. It
+                                    takes 25 km drive from Ooty or a 10 minutes drive from Kotagiri to reach this
+                                    stunning location, where you will find nature at its very best.</p>
+                                <p>The drive to the resort is very scenic with lush green tea estates on either side and
+                                    with the mists, the beauty is beyond imagination. A vacation at Aeon Resort ensures
+                                    all the delights of the Nilgiris within an exclusive setting away from the more
+                                    crowded resorts. No matter how you spend your time, your escape to Aeon is sure to
+                                    leave you with unforgettable memories of your trip to Nilgiris. We offer luxury at
+                                    the very edge of adventure.</p>
+
+
+                            </div>
+                            <div class="col-md-8 col-lg-offset-2">
+                                <div class="text">
+                                    <!-- ===  Gallery === -->
+                                    <span class="image">
+                           <span class="image"><img alt="Alternate Text"
+                                                    src="{% static 'client/assets/images/about-us-1.jpeg' %}"></span>
+                        </span>
+
+                                </div>
+                            </div>
+                            <!--/col-->
+                        </div>
+                        <!--/row-->
+                    </div>
+                    <!-- === text-card === -->
+                </div>
+                <!--/container-->
+            </div>
+        </div>
+    </section>
+    <footer>
+        <div class="container">
+            <!--footer links-->
+            <div class="footer-links">
+                <div class="row">
+                    <div class="col-sm-6 footer-left">
+                        <a href="#">Contact us</a> &nbsp; | &nbsp; <a href="#">Privacy policy</a> | &nbsp; <a href="#">Guest
+                        book</a>
+                    </div>
+                    <div class="col-sm-6 footer-right">
+                        <a href="#">Gallery</a> &nbsp; | &nbsp; <a href="#">Reservations</a> | &nbsp; <a href="#">Help
+                        center</a>
+                    </div>
+                </div>
+            </div>
+            <!--footer social-->
+            <div class="footer-social">
+                <div class="row">
+                    <div class="col-sm-12 text-center hidden">
+                        <a href="" class="footer-logo"><img src="{% static 'client/assets/images/logo.png' %}"
+                                                            alt="Alternate Text"></a>
+                    </div>
+                    <div class="col-sm-12 icons">
+                        <ul>
+                            <li><a href="#"><i class="fa fa-facebook"></i></a></li>
+                            <li><a href="#"><i class="fa fa-twitter"></i></a></li>
+                            <li><a href="#"><i class="fa fa-google-plus"></i></a></li>
+                            <li><a href="#"><i class="fa fa-youtube"></i></a></li>
+                            <li><a href="#"><i class="fa fa-instagram"></i></a></li>
+                        </ul>
+                    </div>
+                    <div class="col-sm-12 copyright">
+                        <small>Copyright © 2020 &nbsp; | &nbsp; Aeson</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+</div>
+<!--/wrapper-->
+<!--JS files-->
+<script src="{% static 'client/js/bundle.min.js' %}"></script>
+</body>
+</html>

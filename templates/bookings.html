@@ -1,0 +1,746 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <!-- Mobile Web-app fullscreen -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="mobile-web-app-capable" content="yes">
+    <!-- Meta tags -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="{% static 'client/favicon.png' %}">
+    <!--Title-->
+    <title>Aeon Holidays & Resorts</title>
+    <!--CSS styles-->
+    <link rel="stylesheet" media="all" href="{% static 'client/css/bundle.min.css' %}"/>
+    <!--Google fonts-->
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:300,500&amp;subset=latin-ext" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Playfair+Display:400,700&amp;subset=latin-ext" rel="stylesheet">
+</head>
+<body>
+<div class="wrapper">
+    <header>
+        <!-- ==================  Navigation (main menu) ================== -->
+        <script
+                type="text/javascript">
+            $(function () {
+
+                // Toggle menu
+                // ------------------------------------
+
+                $('.toggle-menu').on('click', function () {
+                    $(this).toggleClass('open');
+                    $(this).parent().find('.navigation-block').toggleClass('open');
+                });
+
+                var $box = $('.options-content .options .box');
+                $box.click(function () {
+                    var $this = $(this),
+                        $boxWrapper = $this.closest('.box-wrapper');
+
+                    if ($this.hasClass('active')) {
+                        $boxWrapper.removeClass('box-wrapper-selected');
+                        $this.removeClass('active');
+                    } else {
+                        $boxWrapper.addClass('box-wrapper-selected');
+                        $this.closest('.options-content').find('.box').removeClass('active');
+                        $this.addClass('active');
+                    }
+                });
+
+                // Mobile - Dropdown menu
+                // ------------------------------------
+
+                $('.open-dropdown').on('click', function (e) {
+
+                    e.preventDefault();
+
+                    if ($(document).width() >= 992) {
+                        return false;
+                    }
+
+                    var $this = $(this),
+                        $li = $this.closest('li'),
+                        $drop = $li.find('ul');
+
+                    $li.toggleClass('expanded');
+
+                    if ($li.hasClass('expanded')) {
+                        $drop.slideDown();
+                    } else {
+                        $drop.slideUp();
+                    }
+                });
+
+                // Desktop - Dropdown menu
+                //---------------------------
+
+                $('.navigation-block > ul > li').bind({
+                    mouseenter: function () {
+                        if ($(document).width() < 992) {
+                            return false;
+                        }
+                        $(this).addClass('hovered');
+                    },
+                    mouseleave: function () {
+                        if ($(document).width() < 992) {
+                            return false;
+                        }
+                        $(this).removeClass('hovered').removeAttr('class');
+                    },
+                });
+
+            });
+        </script>
+        <!-- ======================== Navigation ======================== -->
+        <div class="container">
+            <!-- === navigation-top === -->
+            <nav class="navigation-top clearfix">
+                <!-- navigation-top-left -->
+                <div class="navigation-top-left">
+                    <a class="box" href="#">
+                        <i class="icon icon-map-marker"></i>
+                        Kothagiri, Coimbatore
+                    </a>
+                    <!-- <a class="box" href="mailto:demo@gmail.com">
+                    <i class="fa fa-envelope" aria-hidden="true"></i>
+                    demo@gmail.com
+                    </a> -->
+                    <a class="box" href="tel:+919999999999">
+                        <i class="icon icon-phone-handset"></i>
+                        +91 9999 999 999
+                    </a>
+                </div>
+                <!-- navigation-top-right -->
+                <div class="navigation-top-right">
+                    <div class="topBarInLogoArea">
+                        <div class="topBarInLogoAreaCell">
+              <span class="btIconWidget ">
+                <span class="btIconWidgetContent">
+                  <span class="btIconWidgetText"><i class="icon icon-map-marker"></i> <span
+                          class="weather">Kothagiri</span></span>
+                </span>
+              </span>
+                            <span class="btIconWidget btWidgetWithText">
+              <span class="btIconWidgetContent">
+                <span class="btIconWidgetText">Today Weather <span class="weather">{{ temp }}°C</span></span>
+              </span>
+            </span>
+                        </div>
+                        <!-- /topBarInLogoAreaCell -->
+                    </div>
+                </div>
+            </nav>
+            <!-- === navigation-main === -->
+            <nav class="navigation-main clearfix">
+                <!-- logo -->
+                <div class="logo animated fadeIn">
+                    <a href="/">
+                        <img class="logo-desktop" src="{% static 'client/assets/images/logo.png' %}"
+                             alt="Alternate Text">
+                        <img class="logo-mobile" src="{% static 'client/assets/images/logo-mobile.png' %}"
+                             alt="Alternate Text">
+                    </a>
+                </div>
+                <!-- toggle-menu -->
+                <div class="toggle-menu"><i class="icon icon-menu"></i></div>
+                <!-- navigation-block -->
+                <div class="navigation-block clearfix">
+                    <!-- navigation-left -->
+                    <ul class="navigation-left">
+                        <li class="">
+                            <a href="/">Home <span class="open-dropdown"></span></a>
+                        </li>
+                        <li class="">
+                            <a href="/aboutUs">About us <span class="open-dropdown"></span></a>
+                        </li>
+                        <li>
+                            <a href="#">Rooms <span class="open-dropdown"><i class="fa fa-angle-down"></i></span></a>
+                            <ul>
+                                <li><a href="/HomeStay">Home Stay</a></li>
+                                <li><a href="/DeluxeRoom">Deluxe Room</a></li>
+                                <li><a href="/PremiumRoom">Premium Room</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                    <!-- navigation-right -->
+                    <ul class="navigation-right">
+                        <li>
+                            <a href="/facility">Facilities</a>
+                        </li>
+                        <li>
+                            <a href="/contactUs">Contact</a>
+                        </li>
+                        <li class="">
+                            <a href="/bookings">Book Now </a>
+                        </li>
+                    </ul>
+                </div>
+                <!--/navigation-block-->
+            </nav>
+        </div>
+        <!--/container-->
+    </header>
+    <!-- ========================  Room ======================== -->
+    <section class="page">
+        <!-- ===  Page header === -->
+        <div class="page-header" style="background-image:url({% static 'client/assets/images/header-1.jpg' %})">
+            <div class="container">
+                <h2 class="title">CHECK AVAILABILITY</h2>
+                <p>Available start from ₹2500 per night</p>
+            </div>
+        </div>
+        <div class="room">
+            <!-- === Room gallery === -->
+            <!-- === Booking === -->
+            <div class="booking booking-default-theme">
+                <form action="/bookings" method="post">
+                    {% csrf_token %}
+                    <div class="booking-wrapper">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-xs-12 col-sm-12 col-md-7">
+                                    <div class="row">
+                                        <!--=== date arrival ===-->
+                                        <div class="col-xs-6 col-sm-6">
+                                            <div class="date" id="dateArrival" data-text="Arrival">
+                                                <input class="datepicker" name="FromDate" value="{{ fromDate }}"
+                                                       readonly="readonly"/>
+                                                <div class="date-value"></div>
+                                            </div>
+                                        </div>
+                                        <!--=== date departure ===-->
+                                        <div class="col-xs-6 col-sm-6">
+                                            <div class="date" id="dateDeparture" data-text="Departure">
+                                                <input class="datepicker" name="ToDate" value="{{ toDate }}"
+                                                       readonly="readonly"/>
+                                                <div class="date-value"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <input hidden name="postCall" value="Home">
+                                <!--=== guests ===-->
+                                <div class="col-xs-4 col-sm-3">
+                                    <div class="guests" data-text="Guests">
+                                        <div class="result">
+                                            <input class="qty-result" name="GuestQuantity" type="text" value="2"
+                                                   id="qty-result"
+                                                   readonly="readonly"/>
+                                            <div class="qty-result-text date-value" id="qty-result-text"></div>
+                                        </div>
+                                        <!--=== guests list ===-->
+                                        <ul class="guest-list">
+                                            <li class="header">
+                                                Please choose number of guests <span class="qty-apply"><i
+                                                    class="icon icon-cross"></i></span>
+                                            </li>
+                                            <!--=== adults ===-->
+                                            <li class="clearfix">
+                                                <!--=== Adults value ===-->
+                                                <div>
+                                                    <input class="qty-amount" value="2" type="text" id="ticket-adult"
+                                                           data-value="2" readonly="readonly"/>
+                                                </div>
+                                                <div>
+                                                    <span>Adults <small>16+ years</small></span>
+                                                </div>
+                                                <!--=== Add/remove quantity buttons ===-->
+                                                <div>
+                                                    <input class="qty-btn qty-minus" value="-" type="button"
+                                                           data-field="ticket-adult"/>
+                                                    <input class="qty-btn qty-plus" value="+" type="button"
+                                                           data-field="ticket-adult"/>
+                                                </div>
+                                            </li>
+                                            <!--=== chilrens ===-->
+                                            <li class="clearfix">
+                                                <!--=== Adults value ===-->
+                                                <div>
+                                                    <input class="qty-amount" value="0" type="text" id="ticket-children"
+                                                           data-value="0" readonly="readonly"/>
+                                                </div>
+                                                <!--=== Label ===-->
+                                                <div>
+                                                    <span>Children <small>2-11 years</small></span>
+                                                </div>
+                                                <!--=== Add/remove quantity buttons ===-->
+                                                <div>
+                                                    <input class="qty-btn qty-minus" value="-" type="button"
+                                                           data-field="ticket-children"/>
+                                                    <input class="qty-btn qty-plus" value="+" type="button"
+                                                           data-field="ticket-children"/>
+                                                </div>
+                                            </li>
+                                            <!--=== Infants ===-->
+                                            <li class="clearfix">
+                                                <!--=== Adults value ===-->
+                                                <div>
+                                                    <input class="qty-amount" value="0" type="text" id="ticket-infants"
+                                                           data-value="0" readonly="readonly"/>
+                                                </div>
+                                                <!--=== Label ===-->
+                                                <div>
+                                                    <span>Infants <small>Under 2 years</small></span>
+                                                </div>
+                                                <!--=== Add/remove quantity buttons ===-->
+                                                <div>
+                                                    <input class="qty-btn qty-minus" value="-" type="button"
+                                                           data-field="ticket-infants"/>
+                                                    <input class="qty-btn qty-plus" value="+" type="button"
+                                                           data-field="ticket-infants"/>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <!--=== button ===-->
+                                <div class="col-xs-12 col-sm-2">
+                                    <button type="submit" class="btn btn-clean">
+                                        Book now
+                                    </button>
+                                </div>
+                            </div>
+                            <!--/row-->
+                        </div>
+                        <!--/booking-wrapper-->
+                    </div>
+                </form>
+                <!--/container-->
+            </div>
+            <!--/booking-->
+        </div>
+    </section>
+    <section class="page">
+        <!-- ===  Checkout === -->
+        <div class="checkout">
+            <div class="container">
+                <div class="row">
+                    <div class="clearfix">
+                        <div class="col-md-12 col-lg-8 col-xs-12 col-sm-12">
+                            <div class="row">
+                                <div style="display: none" id="3cw1jsaY5fRrXLJaF0ws">
+                                    <div class="col-xs-12 col-sm-12">
+                                        <div class="image-blocks image-blocks-header">
+                                            <!--item block -->
+                                            <div class="blocks blocks-left">
+                                                <div class="item">
+                                                    <div class="text">
+                                                        <!-- === room info === -->
+                                                        <h2 class="title">Deluxe Room</h2>
+                                                        <span>(2 Bed Room 1 Hall 1 Kitchen)</span>
+                                                        <div class="room-facilities">
+                                                            <!--=== icon ===-->
+                                                            <figure>
+                                                                <figcaption><i class="hotelicon hotelicon-guest"></i> 4
+                                                                    Persons
+                                                                </figcaption>
+                                                            </figure>
+                                                            <!--=== icon ===-->
+                                                            <figure>
+                                                                <figcaption><i
+                                                                        class="hotelicon hotelicon-roomservice"></i>
+                                                                    Room service
+                                                                </figcaption>
+                                                            </figure>
+                                                            <!--=== icon ===-->
+                                                            <figure>
+                                                                <figcaption><i class="hotelicon hotelicon-king-bed"></i>
+                                                                    Kingsize bed
+                                                                </figcaption>
+                                                            </figure>
+                                                            <!--=== icon ===-->
+                                                            <figure>
+                                                                <figcaption><i class="hotelicon hotelicon-kitchen"></i>
+                                                                    All
+                                                                    inclusive
+                                                                </figcaption>
+                                                            </figure>
+                                                            <!--=== icon ===-->
+                                                            <figure>
+                                                                <figcaption><i class="hotelicon hotelicon-compas"></i>
+                                                                    460
+                                                                    sqft room
+                                                                </figcaption>
+                                                            </figure>
+                                                            <!--=== icon ===-->
+                                                            <figure>
+                                                                <figcaption><i class="hotelicon hotelicon-tv"></i> TV
+                                                                </figcaption>
+                                                            </figure>
+                                                        </div>
+                                                        <!-- === booking === -->
+                                                        <div class="book">
+                                                            <div>
+                                                                <button class="btn btn-danger btn-lg"
+                                                                        onclick="add_to_cart('3cw1jsaY5fRrXLJaF0ws')">
+                                                                    Select
+                                                                </button>
+                                                            </div>
+                                                            <div>
+                                                                <span class="price h2"
+                                                                      id="price_3cw1jsaY5fRrXLJaF0ws"></span>
+                                                                <span>Only one room is available each night..</span>
+                                                            </div>
+                                                        </div>
+                                                        <!--/booking-->
+                                                    </div>
+                                                    <!--/text-->
+                                                </div>
+                                                <!--/item-->
+                                                <div class="image"
+                                                     style="background-image:url({% static 'client/assets/images/apartment-1.jpg' %})">
+                                                    <img src="{% static 'client/assets/images/apartment-1.jpg' %}"
+                                                         alt="">
+                                                </div>
+                                            </div>
+                                            <!--item block -->
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--  room 1 -->
+                                <div style="display: none" id="BNYfmUP7QKELtWIVaC1H">
+                                    <div class="col-xs-12 col-sm-12">
+                                        <div class="image-blocks image-blocks-header">
+                                            <!--item block -->
+                                            <div class="blocks blocks-left">
+                                                <div class="item">
+                                                    <div class="text">
+                                                        <!-- === room info === -->
+                                                        <h2 class="title">Premium Room</h2>
+                                                        <span>(2 Bed Room 1 Hall 1 Kitchen)</span>
+                                                        <div class="room-facilities">
+                                                            <!--=== icon ===-->
+                                                            <figure>
+                                                                <figcaption><i class="hotelicon hotelicon-guest"></i> 4
+                                                                    Persons
+                                                                </figcaption>
+                                                            </figure>
+                                                            <!--=== icon ===-->
+                                                            <figure>
+                                                                <figcaption><i
+                                                                        class="hotelicon hotelicon-roomservice"></i>
+                                                                    Room service
+                                                                </figcaption>
+                                                            </figure>
+                                                            <!--=== icon ===-->
+                                                            <figure>
+                                                                <figcaption><i class="hotelicon hotelicon-king-bed"></i>
+                                                                    Kingsize bed
+                                                                </figcaption>
+                                                            </figure>
+                                                            <!--=== icon ===-->
+                                                            <figure>
+                                                                <figcaption><i class="hotelicon hotelicon-kitchen"></i>
+                                                                    All
+                                                                    inclusive
+                                                                </figcaption>
+                                                            </figure>
+                                                            <!--=== icon ===-->
+                                                            <figure>
+                                                                <figcaption><i class="hotelicon hotelicon-compas"></i>
+                                                                    460
+                                                                    sqft room
+                                                                </figcaption>
+                                                            </figure>
+                                                            <!--=== icon ===-->
+                                                            <figure>
+                                                                <figcaption><i class="hotelicon hotelicon-tv"></i> TV
+                                                                </figcaption>
+                                                            </figure>
+                                                        </div>
+                                                        <!-- === booking === -->
+                                                        <div class="book">
+                                                            <div>
+                                                                <button onclick="add_to_cart('BNYfmUP7QKELtWIVaC1H')"
+                                                                        class="btn btn-danger btn-lg">Select
+                                                                </button>
+                                                            </div>
+                                                            <div>
+                                                                <span class="price h2"
+                                                                      id="price_BNYfmUP7QKELtWIVaC1H"></span>
+                                                                <span>Only one room is available each night..</span>
+                                                            </div>
+                                                        </div>
+                                                        <!--/booking-->
+                                                    </div>
+                                                    <!--/text-->
+                                                </div>
+                                                <!--/item-->
+                                                <div class="image"
+                                                     style="background-image:url({% static 'client/assets/images/room-4.jpg' %})">
+                                                    <img src="{% static 'client/assets/images/room-4.jpg' %}" alt="">
+                                                </div>
+                                            </div>
+                                            <!--item block -->
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--  room 2 -->
+                                <div style="display: none" id="VNij1MRRUdKTQDs65JOQ">
+                                    <div class="col-xs-12 col-sm-12">
+                                        <div class="image-blocks image-blocks-header">
+                                            <!--item block -->
+                                            <div class="blocks blocks-left">
+                                                <div class="item">
+                                                    <div class="text">
+                                                        <!-- === room info === -->
+                                                        <h2 class="title">Home Stay</h2>
+                                                        <span>(2 Bed Room 1 Hall 1 Kitchen)</span>
+                                                        <div class="room-facilities">
+                                                            <!--=== icon ===-->
+                                                            <figure>
+                                                                <figcaption><i class="hotelicon hotelicon-guest"></i> 4
+                                                                    Persons
+                                                                </figcaption>
+                                                            </figure>
+                                                            <!--=== icon ===-->
+                                                            <figure>
+                                                                <figcaption><i
+                                                                        class="hotelicon hotelicon-roomservice"></i>
+                                                                    Room service
+                                                                </figcaption>
+                                                            </figure>
+                                                            <!--=== icon ===-->
+                                                            <figure>
+                                                                <figcaption><i class="hotelicon hotelicon-king-bed"></i>
+                                                                    Kingsize bed
+                                                                </figcaption>
+                                                            </figure>
+                                                            <!--=== icon ===-->
+                                                            <figure>
+                                                                <figcaption><i class="hotelicon hotelicon-kitchen"></i>
+                                                                    All
+                                                                    inclusive
+                                                                </figcaption>
+                                                            </figure>
+                                                            <!--=== icon ===-->
+                                                            <figure>
+                                                                <figcaption><i class="hotelicon hotelicon-compas"></i>
+                                                                    460
+                                                                    sqft room
+                                                                </figcaption>
+                                                            </figure>
+                                                            <!--=== icon ===-->
+                                                            <figure>
+                                                                <figcaption><i class="hotelicon hotelicon-tv"></i> TV
+                                                                </figcaption>
+                                                            </figure>
+                                                        </div>
+                                                        <!-- === booking === -->
+                                                        <div class="book">
+                                                            <div>
+                                                                <button onclick="add_to_cart('VNij1MRRUdKTQDs65JOQ')"
+                                                                        class="btn btn-danger btn-lg">Select
+                                                                </button>
+                                                            </div>
+                                                            <div>
+                                                                <span class="price h2"
+                                                                      id="price_VNij1MRRUdKTQDs65JOQ"></span>
+                                                                <span>Only one room is available each night..</span>
+                                                            </div>
+                                                        </div>
+                                                        <!--/booking-->
+                                                    </div>
+                                                    <!--/text-->
+                                                </div>
+                                                <!--/item-->
+                                                <div class="image"
+                                                     style="background-image:url({% static 'client/assets/images/room-3.jpg' %})">
+                                                    <img src="{% static 'client/assets/images/room-3.jpg' %}" alt="">
+                                                </div>
+                                            </div>
+                                            <!--item block -->
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- ========================  Cart wrapper ======================== -->
+                        <div class="col-md-12 col-lg-4 col-xs-12 col-sm-12">
+                            <div class="cart-wrapper">
+                                <!--cart header -->
+
+                                <div class="cart-block cart-block-header clearfix">
+                                    <div>
+                                        <span>Room type</span>
+                                    </div>
+                                    <div class="text-right">
+                                        <span>Price</span>
+                                    </div>
+                                </div>
+                                <!--cart items-->
+
+                                <div id="cart_list_display">
+                                    <div class="clearfix">
+                                    </div>
+                                </div>
+
+                                <!--cart prices -->
+
+                                <div class="clearfix">
+                                    <div class="cart-block cart-block-footer clearfix">
+                                        <div>
+                                            <strong>{{ fromDate }}</strong>
+                                        </div>
+                                        to
+                                        <div>
+                                            <strong>{{ toDate }}</strong>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--cart final price -->
+                                <div class="clearfix">
+                                    <div class="cart-block cart-block-footer cart-block-footer-price clearfix">
+                                        <div>
+                        <span class="checkbox">
+                        <label for="couponCodeID">Total</label>
+                        </span>
+                                        </div>
+                                        <div>
+                                            <div class="h2 title">₹ <p id="total_place"></p></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- ========================  Cart navigation ======================== -->
+                                <div class="clearfix">
+                                    <div class="cart-block cart-block-footer cart-block-footer-price clearfix">
+                                        <div id="summaryBtn" style="display: none">
+                                            <form action="/roomSummary" method="post">
+                                                {% csrf_token %}
+                                                <button draggable="false" href="javascript:void(0)"
+                                                        class="btn btn-main">
+                                                    Book Now
+                                                    <span class="icon icon-chevron-right"></span></button>
+                                                <input hidden id="form_list" name="form_list" value="0">
+                                                <input hidden id="form_fromDate" name="form_fromDate" value="0">
+                                                <input hidden id="form_toDate" name="form_toDate" value="0">
+                                                <input hidden id="form_guestCount" name="form_guestCount" value="0">
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--/container-->
+        </div>
+        <!--/checkout-->
+    </section>
+    <footer>
+        <div class="container">
+
+            <!--footer links-->
+            <div class="footer-links">
+                <div class="row">
+                    <div class="col-sm-6 footer-left">
+                        <a href="/contactUs">Contact us</a> &nbsp; | &nbsp; <a href="#">Privacy policy</a> | &nbsp; <a
+                            href="#">Guest
+                        book</a>
+                    </div>
+                    <div class="col-sm-6 footer-right">
+                        <a href="#">Gallery</a> &nbsp; | &nbsp; <a href="#">Reservations</a> | &nbsp; <a href="#">Help
+                        center</a>
+                    </div>
+                </div>
+            </div>
+
+            <!--footer social-->
+
+            <div class="footer-social">
+                <div class="row">
+                    <div class="col-sm-12 text-center hidden">
+                        <a href="" class="footer-logo"><img src="{% static 'client/assets/images/logo.png' %}"
+                                                            alt="Alternate Text"></a>
+                    </div>
+                    <div class="col-sm-12 icons">
+                        <ul>
+                            <li><a href="#"><i class="fa fa-facebook"></i></a></li>
+                            <li><a href="#"><i class="fa fa-twitter"></i></a></li>
+                            <li><a href="#"><i class="fa fa-google-plus"></i></a></li>
+                            <li><a href="#"><i class="fa fa-youtube"></i></a></li>
+                            <li><a href="#"><i class="fa fa-instagram"></i></a></li>
+                        </ul>
+                    </div>
+                    <div class="col-sm-12 copyright">
+                        <small>Copyright © 2020 &nbsp; | &nbsp; Aeson</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!--/wrapper-->
+    <!--JS files-->
+    <script src="{% static 'client/js/bundle.min.js' %}"></script>
+    <input hidden id="price_hidden_3cw1jsaY5fRrXLJaF0ws" value="">
+    <input hidden id="price_hidden_BNYfmUP7QKELtWIVaC1H" value="">
+    <input hidden id="price_hidden_VNij1MRRUdKTQDs65JOQ" value="">
+    {% for i,j in roomsAvailable %}
+        <script type="text/javascript">
+            document.getElementById('{{ i }}').style.display = 'block';
+            document.getElementById('price_{{ i }}').innerHTML = '₹ {{ j }}';
+            document.getElementById('price_hidden_{{ i }}').value = {{ j }};
+        </script>
+    {% endfor %}
+    <script type="text/javascript">
+        document.getElementById('form_fromDate').value = '{{ fromDate }}';
+        document.getElementById('form_toDate').value = '{{ toDate }}';
+        document.getElementById('form_guestCount').value = '{{ guestCount }}';
+    </script>
+
+    <script type="text/javascript">
+        let cart_room_list = []
+        let RoomRegister = {
+            '3cw1jsaY5fRrXLJaF0ws': "Deluxe Room",
+            'BNYfmUP7QKELtWIVaC1H': "Premium Room",
+            'VNij1MRRUdKTQDs65JOQ': "Home Stay",
+        };
+
+        function add_to_cart(id) {
+            if (!(cart_room_list.includes(id.toString()))) {
+                cart_room_list.push(id)
+            }
+
+            let total = 0;
+            let appendtext = '';
+            document.getElementById('summaryBtn').style.display = 'block';
+            for (let i in cart_room_list) {
+                let iddd = cart_room_list[i];
+                let price = document.getElementById('price_hidden_' + iddd).value;
+                let text = '<div id="cart_list' + iddd + '"> <div class="cart-block cart-block-item clearfix"><div class="title">' +
+                    '<div class="h4">' + RoomRegister[iddd] +
+                    '</div></div><div class="price"><span class="final h3">' + {{ totalDays }} +' x ' +
+                    '₹' + price.toString() + ' </span></div><a href="javascript:void(0)"' +
+                    ' onclick="remove_from_cart(\'' + iddd.toString() + '\')">' +
+                    '<span class="icon icon-cross"> Remove</span></a></div></div>';
+                appendtext = appendtext + text;
+                total = total + (parseInt({{ totalDays }}) * parseInt(price));
+            }
+            document.getElementById('total_place').innerText = total;
+            document.getElementById('cart_list_display').innerHTML = appendtext;
+            document.getElementById('form_list').value = cart_room_list.toString();
+        }
+
+        function remove_from_cart(id) {
+            document.getElementById('cart_list' + id.toString()).remove()
+            cart_room_list.splice(cart_room_list.indexOf(id), 1);
+            let total = 0;
+            for (let i in cart_room_list) {
+                let price = document.getElementById('price_hidden_' + cart_room_list[i]).value;
+                total = total + parseInt({{ totalDays }}) * parseInt(price);
+            }
+            document.getElementById('total_place').innerText = total;
+            document.getElementById('form_list').value = cart_room_list.toString();
+            if (cart_room_list.length === 0) {
+                document.getElementById('summaryBtn').style.display = 'none';
+            }
+        }
+    </script>
+</div>
+</body>
+</html>

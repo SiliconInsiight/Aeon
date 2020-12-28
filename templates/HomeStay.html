@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <!-- Mobile Web-app fullscreen -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="mobile-web-app-capable" content="yes">
+    <!-- Meta tags -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="{% static 'client/favicon.png' %}">
+    <!--Title-->
+    <title>Aeon Holidays & Resorts</title>
+    <!--CSS styles-->
+    <link rel="stylesheet" media="all" href="{% static 'client/css/bundle.min.css' %}"/>
+    <!--Google fonts-->
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:300,500&amp;subset=latin-ext" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Playfair+Display:400,700&amp;subset=latin-ext" rel="stylesheet">
+</head>
+<body>
+<div class="wrapper">
+    <header>
+        <!-- ==================  Navigation (main menu) ================== -->
+        <script type="text/javascript">
+            $(function () {
+
+                // Toggle menu
+                // ------------------------------------
+
+                $('.toggle-menu').on('click', function () {
+                    $(this).toggleClass('open');
+                    $(this).parent().find('.navigation-block').toggleClass('open');
+                });
+
+                var $box = $('.options-content .options .box');
+                $box.click(function () {
+                    var $this = $(this),
+                        $boxWrapper = $this.closest('.box-wrapper');
+
+                    if ($this.hasClass('active')) {
+                        $boxWrapper.removeClass('box-wrapper-selected');
+                        $this.removeClass('active');
+                    } else {
+                        $boxWrapper.addClass('box-wrapper-selected');
+                        $this.closest('.options-content').find('.box').removeClass('active');
+                        $this.addClass('active');
+                    }
+                });
+
+                // Mobile - Dropdown menu
+                // ------------------------------------
+
+                $('.open-dropdown').on('click', function (e) {
+
+                    e.preventDefault();
+
+                    if ($(document).width() >= 992) {
+                        return false;
+                    }
+
+                    var $this = $(this),
+                        $li = $this.closest('li'),
+                        $drop = $li.find('ul');
+
+                    $li.toggleClass('expanded');
+
+                    if ($li.hasClass('expanded')) {
+                        $drop.slideDown();
+                    } else {
+                        $drop.slideUp();
+                    }
+                });
+
+                // Desktop - Dropdown menu
+                //---------------------------
+
+                $('.navigation-block > ul > li').bind({
+                    mouseenter: function () {
+                        if ($(document).width() < 992) {
+                            return false;
+                        }
+                        $(this).addClass('hovered');
+                    },
+                    mouseleave: function () {
+                        if ($(document).width() < 992) {
+                            return false;
+                        }
+                        $(this).removeClass('hovered').removeAttr('class');
+                    },
+                });
+
+            });
+        </script>
+        <!-- ======================== Navigation ======================== -->
+        <div class="container">
+            <!-- === navigation-top === -->
+            <nav class="navigation-top clearfix">
+                <!-- navigation-top-left -->
+                <div class="navigation-top-left">
+                    <a class="box" href="#">
+                        <i class="icon icon-map-marker"></i>
+                        Kothagiri, Coimbatore
+                    </a>
+                    <!-- <a class="box" href="mailto:demo@gmail.com">
+                    <i class="fa fa-envelope" aria-hidden="true"></i>
+                    demo@gmail.com
+                    </a> -->
+                    <a class="box" href="tel:+919999999999">
+                        <i class="icon icon-phone-handset"></i>
+                        +91 9999 999 999
+                    </a>
+                </div>
+                <!-- navigation-top-right -->
+                <div class="navigation-top-right">
+                    <div class="topBarInLogoArea">
+                        <div class="topBarInLogoAreaCell">
+              <span class="btIconWidget ">
+                <span class="btIconWidgetContent">
+                  <span class="btIconWidgetText"><i class="icon icon-map-marker"></i> <span
+                          class="weather">Kothagiri</span></span>
+                </span>
+              </span>
+                            <span class="btIconWidget btWidgetWithText">
+              <span class="btIconWidgetContent">
+                <span class="btIconWidgetText">Today Weather <span class="weather">{{ temp }}°C</span></span>
+              </span>
+            </span>
+                        </div>
+                        <!-- /topBarInLogoAreaCell -->
+                    </div>
+                </div>
+            </nav>
+            <!-- === navigation-main === -->
+            <nav class="navigation-main clearfix">
+                <!-- logo -->
+                <div class="logo animated fadeIn">
+                    <a href="/">
+                        <img class="logo-desktop" src="{% static 'client/assets/images/logo.png' %}"
+                             alt="Alternate Text">
+                        <img class="logo-mobile" src="{% static 'client/assets/images/logo-mobile.png' %}"
+                             alt="Alternate Text">
+                    </a>
+                </div>
+                <!-- toggle-menu -->
+                <div class="toggle-menu"><i class="icon icon-menu"></i></div>
+                <!-- navigation-block -->
+                <div class="navigation-block clearfix">
+                    <!-- navigation-left -->
+                    <ul class="navigation-left">
+                        <li class="">
+                            <a href="/">Home <span class="open-dropdown"></span></a>
+                        </li>
+                        <li class="">
+                            <a href="/aboutUs">About us <span class="open-dropdown"></span></a>
+                        </li>
+                        <li>
+                            <a href="#">Rooms <span class="open-dropdown"><i class="fa fa-angle-down"></i></span></a>
+                            <ul>
+                                <li><a href="/HomeStay">Home Stay</a></li>
+                                <li><a href="/DeluxeRoom">Deluxe Room</a></li>
+                                <li><a href="/PremiumRoom">Premium Room</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                    <!-- navigation-right -->
+                    <ul class="navigation-right">
+                        <li>
+                            <a href="/facility">Facilities</a>
+                        </li>
+                        <li>
+                            <a href="/contact-us">Contact</a>
+                        </li>
+                        <li class="">
+                            <a href="/bookings">Book Now </a>
+                        </li>
+                    </ul>
+                </div>
+                <!--/navigation-block-->
+            </nav>
+        </div>
+        <!--/container-->
+    </header>
+    <!-- ========================  Room ======================== -->
+    <section class="page">
+        <!-- ===  Page header === -->
+        <div class="page-header" style="background-image:url({% static 'client/assets/images/header-1.jpg' %})">
+            <div class="container">
+                <h2 class="title">Room Overview</h2>
+                <p>Available start from ₹2500 per night</p>
+            </div>
+        </div>
+        <div class="room">
+            <!-- === Room gallery === -->
+            <div class="room-gallery">
+                <div class="container">
+                    <div class="owl-slider owl-theme owl-slider-gallery">
+                        <!-- === slide item === -->
+                        <div class="item" style="background-image:url({% static 'client/assets/HomeStay/1.png' %})">
+                            <img src="{% static 'client/assets/HomeStay/1.png' %}" alt=""/>
+                        </div>
+                        <!-- === slide item === -->
+                        <div class="item" style="background-image:url({% static 'client/assets/HomeStay/2.png' %})">
+                            <img src="{% static 'client/assets/HomeStay/2.png' %}" alt=""/>
+                        </div>
+                        <!-- === slide item === -->
+                        <div class="item" style="background-image:url({% static 'client/assets/HomeStay/3.png' %})">
+                            <img src="{% static 'client/assets/HomeStay/3.png' %}" alt=""/>
+                        </div>
+                        <!-- === slide item === -->
+                        <div class="item" style="background-image:url({% static 'client/assets/HomeStay/4.png' %})">
+                            <img src="{% static 'client/assets/HomeStay/4.png' %}" alt=""/>
+                        </div>
+                        <!-- === slide item === -->
+                        <div class="item" style="background-image:url({% static 'client/assets/HomeStay/5.png' %})">
+                            <img src="{% static 'client/assets/HomeStay/5.png' %}" alt=""/>
+                        </div>
+                        <!-- === slide item === -->
+                        <div class="item" style="background-image:url({% static 'client/assets/HomeStay/6.png' %})">
+                            <img src="{% static 'client/assets/HomeStay/6.png' %}" alt=""/>
+                        </div>
+                    </div>
+                    <!--/owl-slider-->
+                </div>
+            </div>
+            <!--/room-gallery-->
+            <!-- === Booking === -->
+            <div class="booking booking-inner">
+                <div class="container">
+                    <div class="booking-wrapper">
+                        <div class="row">
+                            <div class="col-xs-12 col-sm-12 col-md-7">
+                                <div class="row">
+                                    <!--=== date arrival ===-->
+                                    <div class="col-xs-6 col-sm-6">
+                                        <div class="date" id="dateArrival" data-text="Arrival">
+                                            <input class="datepicker" readonly="readonly"/>
+                                            <div class="date-value"></div>
+                                        </div>
+                                    </div>
+                                    <!--=== date departure ===-->
+                                    <div class="col-xs-6 col-sm-6">
+                                        <div class="date" id="dateDeparture" data-text="Departure">
+                                            <input class="datepicker" readonly="readonly"/>
+                                            <div class="date-value"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--=== guests ===-->
+                            <div class="col-xs-4 col-sm-3">
+                                <div class="guests" data-text="Guests">
+                                    <div class="result">
+                                        <input class="qty-result" type="text" value="2" id="qty-result"
+                                               readonly="readonly"/>
+                                        <div class="qty-result-text date-value" id="qty-result-text"></div>
+                                    </div>
+                                    <!--=== guests list ===-->
+                                    <ul class="guest-list">
+                                        <li class="header">
+                                            Please choose number of guests <span class="qty-apply"><i
+                                                class="icon icon-cross"></i></span>
+                                        </li>
+                                        <!--=== adults ===-->
+                                        <li class="clearfix">
+                                            <!--=== Adults value ===-->
+                                            <div>
+                                                <input class="qty-amount" value="2" type="text" id="ticket-adult"
+                                                       data-value="2" readonly="readonly"/>
+                                            </div>
+                                            <div>
+                                                <span>Adults <small>16+ years</small></span>
+                                            </div>
+                                            <!--=== Add/remove quantity buttons ===-->
+                                            <div>
+                                                <input class="qty-btn qty-minus" value="-" type="button"
+                                                       data-field="ticket-adult"/>
+                                                <input class="qty-btn qty-plus" value="+" type="button"
+                                                       data-field="ticket-adult"/>
+                                            </div>
+                                        </li>
+                                        <!--=== chilrens ===-->
+                                        <li class="clearfix">
+                                            <!--=== Adults value ===-->
+                                            <div>
+                                                <input class="qty-amount" value="0" type="text" id="ticket-children"
+                                                       data-value="0" readonly="readonly"/>
+                                            </div>
+                                            <!--=== Label ===-->
+                                            <div>
+                                                <span>Children <small>2-11 years</small></span>
+                                            </div>
+                                            <!--=== Add/remove quantity buttons ===-->
+                                            <div>
+                                                <input class="qty-btn qty-minus" value="-" type="button"
+                                                       data-field="ticket-children"/>
+                                                <input class="qty-btn qty-plus" value="+" type="button"
+                                                       data-field="ticket-children"/>
+                                            </div>
+                                        </li>
+                                        <!--=== Infants ===-->
+                                        <li class="clearfix">
+                                            <!--=== Adults value ===-->
+                                            <div>
+                                                <input class="qty-amount" value="0" type="text" id="ticket-infants"
+                                                       data-value="0" readonly="readonly"/>
+                                            </div>
+                                            <!--=== Label ===-->
+                                            <div>
+                                                <span>Infants <small>Under 2 years</small></span>
+                                            </div>
+                                            <!--=== Add/remove quantity buttons ===-->
+                                            <div>
+                                                <input class="qty-btn qty-minus" value="-" type="button"
+                                                       data-field="ticket-infants"/>
+                                                <input class="qty-btn qty-plus" value="+" type="button"
+                                                       data-field="ticket-infants"/>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <!--=== button ===-->
+                            <div class="col-xs-12 col-sm-2">
+                                <a href="/bookings" class="btn btn-clean">
+                                    Book now
+                                </a>
+                            </div>
+                        </div>
+                        <!--/row-->
+                    </div>
+                    <!--/booking-wrapper-->
+                </div>
+                <!--/container-->
+            </div>
+            <!--/booking-->
+            <!-- ===  Room overview === -->
+            <div class="room-overview">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-sm-10 col-sm-offset-1 col-md-8 col-md-offset-2">
+                            <!-- === Room aminities === -->
+                            <div class="room-block room-aminities">
+                                <h2 class="title">Room aminities</h2>
+                                <div class="row">
+                                    <!--=== item ===-->
+                                    <div class="col-xs-6 col-sm-2">
+                                        <figure>
+                                            <figcaption>
+                                                <span class="hotelicon hotelicon-air-condition"></span>
+                                                <p>Aircondition</p>
+                                            </figcaption>
+                                        </figure>
+                                    </div>
+                                    <!--=== item ===-->
+                                    <div class="col-xs-6 col-sm-2">
+                                        <figure>
+                                            <figcaption>
+                                                <span class="hotelicon hotelicon-king-bed"></span>
+                                                <p>1 Kingsize bed</p>
+                                            </figcaption>
+                                        </figure>
+                                    </div>
+                                    <!--=== item ===-->
+                                    <div class="col-xs-6 col-sm-2">
+                                        <figure>
+                                            <figcaption>
+                                                <span class="hotelicon hotelicon-guest"></span>
+                                                <p>2 People</p>
+                                            </figcaption>
+                                        </figure>
+                                    </div>
+                                    <!--=== item ===-->
+                                    <div class="col-xs-6 col-sm-2">
+                                        <figure>
+                                            <figcaption>
+                                                <span class="hotelicon hotelicon-wifi"></span>
+                                                <p>Internet</p>
+                                            </figcaption>
+                                        </figure>
+                                    </div>
+                                    <!--=== item ===-->
+                                    <div class="col-xs-6 col-sm-2">
+                                        <figure>
+                                            <figcaption>
+                                                <span class="hotelicon hotelicon-washer"></span>
+                                                <p>Washer</p>
+                                            </figcaption>
+                                        </figure>
+                                    </div>
+                                    <!--=== item ===-->
+                                    <div class="col-xs-6 col-sm-2">
+                                        <figure>
+                                            <figcaption>
+                                                <span class="hotelicon hotelicon-roomservice"></span>
+                                                <p>Room service</p>
+                                            </figcaption>
+                                        </figure>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- === Room block === -->
+                            <div class="room-block">
+                                <h2 class="title">Room overview</h2>
+                                <p>
+                                    The Superior Rooms pay tribute to fashion and craftsmanship. The rooms are
+                                    approximately 19m2 with views of Rue d'Alger and Jardin des Tuileries.
+                                    The selection and pairing of materials has been carefully chosen to give you a cool
+                                    experience. The super soft bed topper is simply extravagant!
+                                    Every room is different but the colour palette uses unique and expertly matched
+                                    hues.
+                                    An openwork brass screen separates the bathroom from the bedroom. This original
+                                    feature helps make every room your very own cosy and peaceful haven.
+                                    Bathrobes, slippers and SOTHYS toiletries are provided in the bathroom to pamper
+                                    you.
+                                </p>
+                            </div>
+                            <!-- === Room block === -->
+                            <div class="room-block">
+                                <h2 class="title">House rules</h2>
+                                <!-- === box === -->
+                                <div class="box">
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <p><strong>Check-In</strong></p>
+                                        </div>
+                                        <div class="col-md-8">
+                                            <p>14:00 - 22:00</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- === box === -->
+                                <div class="box">
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <p><strong>Check-out</strong></p>
+                                        </div>
+                                        <div class="col-md-8">
+                                            <p>14:00 - 22:00</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- === box === -->
+                                <div class="box">
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <p><strong>Luggage storage</strong></p>
+                                        </div>
+                                        <div class="col-md-8">
+                                            <p>14:00 - 22:00</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- === box === -->
+                                <div class="box">
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <p><strong>Cancellation/prepayment</strong></p>
+                                        </div>
+                                        <div class="col-md-8">
+                                            <p>
+                                                Cancellation and prepayment policies vary according to room type. Please
+                                                enter the dates of your stay and check the conditions of your required
+                                                room.
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- === box === -->
+                                <div class="box">
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <p><strong>Children and extra beds</strong></p>
+                                        </div>
+                                        <div class="col-md-8">
+                                            <p>All children are welcome.</p>
+                                            <p>One child under 6 years is charged EUR 50 per night when using existing
+                                                beds.</p>
+                                            <p>There is no capacity for extra beds in the room.</p>
+                                            <p>Supplements are not calculated automatically in the total costs and will
+                                                have to be paid for separately during your stay. </p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- === box === -->
+                                <div class="box">
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <p><strong>Pets</strong></p>
+                                        </div>
+                                        <div class="col-md-8">
+                                            <p>Pets are not allowed.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- === box === -->
+                                <div class="box">
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <p><strong>Additional info</strong></p>
+                                        </div>
+                                        <div class="col-md-8">
+                                            <p>Please note that the restaurant is closed each Sunday.</p>
+                                            <p>The restaurant will also be closed during Christmas (25-26 December).</p>
+                                            <p>Please note that parking spaces cannot be reserved or guaranteed.</p>
+                                            <p>
+                                                For a group booking more than 5 rooms up to 4 weeks prior to arrival
+                                                cancellation is
+                                                100% free of charge, within 2 until 4 weeks 50% free of charge, and
+                                                within 2 weeks the
+                                                property will charge you in full. Please note that Ozo hotel always
+                                                charges city tax
+                                                prior to your arrival with the non-refundable rate or group booking.
+                                            </p>
+                                            <p>
+                                                Please note that the credit card that is used for the booking needs to
+                                                be present at check-in.
+                                                When this credit card is not available please bring a photocopy of the
+                                                credit card with
+                                                authorization of the owner.
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!--/col-sm-10-->
+                    </div>
+                    <!--/row-->
+                </div>
+                <!--/container-->
+            </div>
+            <!--/room-overview-->
+        </div>
+    </section>
+    <footer>
+        <div class="container">
+            <!--footer links-->
+            <div class="footer-links">
+                <div class="row">
+                    <div class="col-sm-6 footer-left">
+                        <a href="/contactUs">Contact us</a> &nbsp; | &nbsp; <a href="#">Privacy policy</a> | &nbsp; <a
+                            href="#">Guest
+                        book</a>
+                    </div>
+                    <div class="col-sm-6 footer-right">
+                        <a href="#">Gallery</a> &nbsp; | &nbsp; <a href="#">Reservations</a> | &nbsp; <a href="#">Help
+                        center</a>
+                    </div>
+                </div>
+            </div>
+            <!--footer social-->
+            <div class="footer-social">
+                <div class="row">
+                    <div class="col-sm-12 text-center hidden">
+                        <a href="" class="footer-logo"><img src="{% static 'client/assets/images/logo.png' %}"
+                                                            alt="Alternate Text"></a>
+                    </div>
+                    <div class="col-sm-12 icons">
+                        <ul>
+                            <li><a href="#"><i class="fa fa-facebook"></i></a></li>
+                            <li><a href="#"><i class="fa fa-twitter"></i></a></li>
+                            <li><a href="#"><i class="fa fa-google-plus"></i></a></li>
+                            <li><a href="#"><i class="fa fa-youtube"></i></a></li>
+                            <li><a href="#"><i class="fa fa-instagram"></i></a></li>
+                        </ul>
+                    </div>
+                    <div class="col-sm-12 copyright">
+                        <small>Copyright © 2020 &nbsp; | &nbsp; Aeson</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+</div>
+<!--/wrapper-->
+<!--JS files-->
+<script src="{% static 'client/js/bundle.min.js' %}"></script>
+</body>
+</html>

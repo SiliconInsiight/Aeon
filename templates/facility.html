@@ -1,0 +1,347 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+  <head>
+      {% load static %}
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <!-- Mobile Web-app fullscreen -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="mobile-web-app-capable" content="yes">
+    <!-- Meta tags -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="{% static 'client/favicon.png' %}">
+    <!--Title-->
+    <title>Aeon Holidays & Resorts</title>
+    <!--CSS styles-->
+    <link rel="stylesheet" media="all" href="{% static 'client/css/bundle.min.css' %}" />
+    <!--Google fonts-->
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:300,500&amp;subset=latin-ext" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Playfair+Display:400,700&amp;subset=latin-ext" rel="stylesheet">
+  </head>
+  <body>
+    <div class="wrapper">
+      <header>
+        <!-- ==================  Navigation (main menu) ================== -->
+        <script type="text/javascript">
+          $(function () {
+          
+          // Toggle menu
+          // ------------------------------------
+          
+          $('.toggle-menu').on('click', function () {
+          $(this).toggleClass('open');
+          $(this).parent().find('.navigation-block').toggleClass('open');
+          });
+          
+          var $box = $('.options-content .options .box');
+          $box.click(function () {
+          var $this = $(this),
+              $boxWrapper = $this.closest('.box-wrapper');
+          
+          if ($this.hasClass('active')) {
+              $boxWrapper.removeClass('box-wrapper-selected');
+              $this.removeClass('active');
+          }
+          else {
+              $boxWrapper.addClass('box-wrapper-selected');
+              $this.closest('.options-content').find('.box').removeClass('active');
+              $this.addClass('active');
+          }
+          });
+          
+          // Mobile - Dropdown menu
+          // ------------------------------------
+          
+          $('.open-dropdown').on('click', function (e) {
+          
+          e.preventDefault();
+          
+          if ($(document).width() >= 992) {
+              return false;
+          }
+          
+          var $this = $(this),
+              $li = $this.closest('li'),
+              $drop = $li.find('ul');
+          
+          $li.toggleClass('expanded');
+          
+          if ($li.hasClass('expanded')) {
+              $drop.slideDown();
+          }
+          else {
+              $drop.slideUp();
+          }
+          });
+          
+          // Desktop - Dropdown menu
+          //---------------------------
+          
+          $('.navigation-block > ul > li').bind({
+          mouseenter: function () {
+              if ($(document).width() < 992) {
+                  return false;
+              }
+              $(this).addClass('hovered');
+          },
+          mouseleave: function () {
+              if ($(document).width() < 992) {
+                  return false;
+              }
+              $(this).removeClass('hovered').removeAttr('class');
+          },
+          });
+          
+          });
+        </script>
+        <!-- ======================== Navigation ======================== -->
+        <div class="container">
+          <!-- === navigation-top === -->
+          <nav class="navigation-top clearfix">
+            <!-- navigation-top-left -->
+            <div class="navigation-top-left">
+              <a class="box" href="#">
+              <i class="icon icon-map-marker"></i> 
+              Kothagiri, Coimbatore
+              </a>
+              <!-- <a class="box" href="mailto:demo@gmail.com">
+              <i class="fa fa-envelope" aria-hidden="true"></i>
+              demo@gmail.com
+              </a> -->
+              <a class="box" href="tel:+919999999999">
+              <i class="icon icon-phone-handset"></i> 
+              +91 9999 999 999
+              </a>
+            </div>
+            <!-- navigation-top-right -->
+          <div class="navigation-top-right">
+          <div class="topBarInLogoArea">
+            <div class="topBarInLogoAreaCell">
+              <span class="btIconWidget ">
+                <span class="btIconWidgetContent">
+                  <span class="btIconWidgetText"><i class="icon icon-map-marker"></i> <span class="weather">Kothagiri</span></span>
+                </span>
+              </span>
+              <span class="btIconWidget btWidgetWithText">
+              <span class="btIconWidgetContent">
+                <span class="btIconWidgetText">Today Weather <span class="weather">{{ temp }}°C</span></span>
+              </span>
+            </span>
+            </div>
+            <!-- /topBarInLogoAreaCell -->
+          </div>
+        </div>
+          </nav>
+          <!-- === navigation-main === -->
+          <nav class="navigation-main clearfix">
+            <!-- logo -->
+            <div class="logo animated fadeIn">
+              <a href="/">
+              <img class="logo-desktop" src="{% static 'client/assets/images/logo.png' %}" alt="Alternate Text">
+              <img class="logo-mobile" src="{% static 'client/assets/images/logo-mobile.png' %}" alt="Alternate Text">
+              </a>
+            </div>
+            <!-- toggle-menu -->
+            <div class="toggle-menu"><i class="icon icon-menu"></i></div>
+            <!-- navigation-block -->
+            <div class="navigation-block clearfix">
+              <!-- navigation-left -->
+              <ul class="navigation-left">
+                <li class="">
+                  <a href="/">Home <span class="open-dropdown"></span></a>
+                </li>
+                <li class="">
+                  <a href="/aboutUs">About us <span class="open-dropdown"></span></a>
+                </li>
+                <li>
+                  <a href="#">Rooms <span class="open-dropdown"><i class="fa fa-angle-down"></i></span></a>
+                  <ul>
+                    <li><a href="/HomeStay">Home Stay</a></li>
+                    <li><a href="/DeluxeRoom">Deluxe Room</a></li>
+                    <li><a href="/PremiumRoom">Premium Room</a></li>
+                  </ul>
+                </li>
+              </ul>
+              <!-- navigation-right -->
+              <ul class="navigation-right">
+                <li>
+                  <a href="/facility">Facilities</a>
+                </li>                
+                <li>
+                  <a href="/contactUs">Contact</a>
+                </li>
+                <li class="">
+                  <a href="/bookings">Book Now </a>
+                </li>
+              </ul>
+            </div>
+            <!--/navigation-block-->
+          </nav>
+        </div>
+        <!--/container-->
+      </header>
+         <!-- ======================== Contact ======================== -->
+       <section class="page">
+
+            <!-- ===  Page header === -->
+
+            <div class="page-header" style="background-image:url({% static 'client/assets/images/header-1.jpg' %})">
+                <div class="container">
+                    <h2 class="title">OUR FACILITIES</h2>
+                </div>
+            </div>
+
+            <!-- ===  Blog === -->
+
+            <div class="blog blog-category">
+
+                <div class="container">
+                  
+
+                    <div class="row">
+
+                        <!-- === blog-content === -->
+
+                        <div class="col-sm-12 col-md-12">
+
+
+                            <div class="row">
+
+                                <!-- === article item === -->
+
+                                <div class="col-sm-6 col-md-6">
+                                        <article>
+                                            <div class="image" style="background-image:url({% static 'client/assets/images/pool1.jpg' %})">
+                                                <img src="{% static 'client/assets/images/camp.jfif' %}" alt="" />
+                                              </div>
+                                            <div class="text">
+                                              <h2 class="title">CAMP FIRE</h2>
+                                                <h2 class="h4 title">
+                                                It creates a wonderful ritual that carries serious memory power: sitting around a campfire will become the natural ending to the day’s events. Whether you’ve just risen from that superb, summertime barbeque, or everyone’s home from the scattered schedules of camp or athletics, the fire brings everyone together and in a circle. Often, when we ask our kids for their favorite holiday memories, “sitting around the campfire” leads the list.
+
+                                                </h2>
+                                            </div>
+                                        </article>
+                                </div>
+
+                                <!-- === article item === -->
+
+                              
+                                <div class="col-sm-6 col-md-6">
+                                        <article>
+                                            <div class="image" style="background-image:url({% static 'client/assets/images/games1.jpg' %})">
+                                                <img src="{% static 'client/assets/images/games1.jpg' %}" alt="" />
+                                              </div>
+                                                <div class="text">
+                                             <h2 class="title">SPORTS & RECREATIONAL FACILITIES</h2>
+                                                <h2 class="h4 title">
+                                                    Whether to soak in the pool, sun bathe or sit by the pool side and enjoy a cocktail, the pool is a favorite location among guests. The sunken Pool Bar offers you an opportunity to enjoy a drink while relaxing in the pool. We also have a kids' pool where youngsters can enjoy themselves in safety. Swim suite is compulsory to use the pool.
+                                                </h2>
+                                            </div>
+                                        </article>
+                                </div>
+
+
+                                <!-- === article item === -->
+                                        <div class="col-sm-6 col-md-6">
+                                        <article>
+                                            <div class="image" style="background-image:url({% static 'client/assets/images/conference.jpg' %})">
+                                                <img src="{% static 'client/assets/images/conference.jpg' %}" alt="" />
+                                              </div>
+                                                <div class="text">
+                                             <h2 class="title">CONFERENCE FACILITIES</h2>
+                                                <h2 class="h4 title">
+                                                     We believe that relaxing, fun and inspiring environs contribute towards developing better corporate strategies. We have an impressive, ethnic looking conference hall, "THE EMERALD". It is equipped with state-of-the-art audio visual facilities to conduct conferences, meetings or corporate retreats. The Emerald is an air-conditioned conference hall capable of accommodating up to 250 persons.
+                                                </h2>
+                                            </div>
+                                        </article>
+                                </div>
+
+                                <!-- === article item === -->
+
+                                <div class="col-sm-6 col-md-6">
+                                        <article>
+                                            <div class="image" style="background-image:url({% static 'client/assets/images/satelite.jpg' %})">
+                                                    <img src="{% static 'client/assets/images/satelite.jpg' %}" alt="" />
+                                                  </div>
+                                                <div class="text">
+                                             <h2 class="title">SATELLITE TV</h2>
+                                                <h2 class="h4 title">
+                                                     We provide a range of cable TV channels via Satellite. These include BBC, HBO, ESPN, Star Sports, National Geographic as well as Indian TV channels. Although the last thing you should do at Poovar Island is spend your time in your room watching TV, we provide this feature as we want to ensure your complete satisfaction.
+                                                </h2>
+                                            </div>
+                                        </article>
+                                </div>
+
+
+
+                                <!-- === article item === -->
+
+                                <div class="col-sm-6 col-md-6">
+                                        <article>
+                                            <div class="image" style="background-image:url({% static 'client/assets/images/laundry.jpg' %})">
+                                            <img src="{% static 'client/assets/images/laundry.jpg' %}" alt="" />
+                                          </div>
+                                                <div class="text">
+                                             <h2 class="title">LAUNDRY SERVICES</h2>
+                                                <h2 class="h4 title">
+                                                     We provide a complete laundry service from washing and pressing to dry cleaning. We offer both a normal and express service. Laundry collected before 10.00 am from your room will be delivered on the same day at normal rates. Laundry collected after 10.00 am and requested for the same day will be charged 50% extra on our normal rates.
+                                                </h2>
+                                            </div>
+                                        </article>
+                                </div>
+                                <!-- === article item === -->
+                            </div>
+
+                        </div>
+
+
+                    </div> <!--/row-->
+
+
+                </div><!--/container-->
+            </div> <!--/blog-category-->
+        </section>
+         <footer>
+        <div class="container">
+          <!--footer links-->
+          <div class="footer-links">
+            <div class="row">
+              <div class="col-sm-6 footer-left">
+                <a href="/contactUs">Contact us</a> &nbsp; | &nbsp; <a href="#">Privacy policy</a> | &nbsp; <a href="#">Guest book</a>
+              </div>
+              <div class="col-sm-6 footer-right">
+                <a href="#">Gallery</a> &nbsp; | &nbsp; <a href="#">Reservations</a> | &nbsp; <a href="#">Help center</a>
+              </div>
+            </div>
+          </div>
+          <!--footer social-->
+          <div class="footer-social">
+            <div class="row">
+              <div class="col-sm-12 text-center hidden">
+                <a href="" class="footer-logo"><img src="{% static 'client/assets/images/logo.png' %}" alt="Alternate Text"></a>
+              </div>
+              <div class="col-sm-12 icons">
+                <ul>
+                  <li><a href="#"><i class="fa fa-facebook"></i></a></li>
+                  <li><a href="#"><i class="fa fa-twitter"></i></a></li>
+                  <li><a href="#"><i class="fa fa-google-plus"></i></a></li>
+                  <li><a href="#"><i class="fa fa-youtube"></i></a></li>
+                  <li><a href="#"><i class="fa fa-instagram"></i></a></li>
+                </ul>
+              </div>
+              <div class="col-sm-12 copyright">
+                <small>Copyright © 2020 &nbsp; | &nbsp; Aeson</small>
+              </div>
+            </div>
+          </div>
+        </div>
+      </footer>
+    </div>
+    <!--/wrapper-->
+    <!--JS files-->
+    <script src="{% static 'client/js/bundle.min.js' %}"></script>
+  </body>
+</html>

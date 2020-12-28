@@ -1,0 +1,681 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <!-- Mobile Web-app fullscreen -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="mobile-web-app-capable" content="yes">
+    <!-- Meta tags -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="{% static 'client/favicon.png' %}">
+    <!--Title-->
+    <title>Aeon Holidays & Resorts</title>
+    <!--CSS styles-->
+    <link rel="stylesheet" media="all" href="{% static 'client/css/bundle.min.css' %}"/>
+    <!--Google fonts-->
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:300,500&amp;subset=latin-ext" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Playfair+Display:400,700&amp;subset=latin-ext" rel="stylesheet">
+</head>
+<body>
+<div class="wrapper">
+    <header>
+        <!-- ==================  Navigation (main menu) ================== -->
+        <script type="text/javascript">
+            $(function () {
+
+                // Toggle menu
+                // ------------------------------------
+
+                $('.toggle-menu').on('click', function () {
+                    $(this).toggleClass('open');
+                    $(this).parent().find('.navigation-block').toggleClass('open');
+                });
+
+                var $box = $('.options-content .options .box');
+                $box.click(function () {
+                    var $this = $(this),
+                        $boxWrapper = $this.closest('.box-wrapper');
+
+                    if ($this.hasClass('active')) {
+                        $boxWrapper.removeClass('box-wrapper-selected');
+                        $this.removeClass('active');
+                    } else {
+                        $boxWrapper.addClass('box-wrapper-selected');
+                        $this.closest('.options-content').find('.box').removeClass('active');
+                        $this.addClass('active');
+                    }
+                });
+
+                // Mobile - Dropdown menu
+                // ------------------------------------
+
+                $('.open-dropdown').on('click', function (e) {
+
+                    e.preventDefault();
+
+                    if ($(document).width() >= 992) {
+                        return false;
+                    }
+
+                    var $this = $(this),
+                        $li = $this.closest('li'),
+                        $drop = $li.find('ul');
+
+                    $li.toggleClass('expanded');
+
+                    if ($li.hasClass('expanded')) {
+                        $drop.slideDown();
+                    } else {
+                        $drop.slideUp();
+                    }
+                });
+
+                // Desktop - Dropdown menu
+                //---------------------------
+
+                $('.navigation-block > ul > li').bind({
+                    mouseenter: function () {
+                        if ($(document).width() < 992) {
+                            return false;
+                        }
+                        $(this).addClass('hovered');
+                    },
+                    mouseleave: function () {
+                        if ($(document).width() < 992) {
+                            return false;
+                        }
+                        $(this).removeClass('hovered').removeAttr('class');
+                    },
+                });
+
+            });
+        </script>
+        <!-- ======================== Navigation ======================== -->
+        <div class="container">
+            <!-- === navigation-top === -->
+            <nav class="navigation-top clearfix">
+                <!-- navigation-top-left -->
+                <div class="navigation-top-left">
+                    <a class="box" href="#">
+                        <i class="icon icon-map-marker"></i>
+                        Kothagiri, Coimbatore
+                    </a>
+                    <!-- <a class="box" href="mailto:demo@gmail.com">
+                    <i class="fa fa-envelope" aria-hidden="true"></i>
+                    demo@gmail.com
+                    </a> -->
+                    <a class="box" href="tel:+919999999999">
+                        <i class="icon icon-phone-handset"></i>
+                        +91 9999 999 999
+                    </a>
+                </div>
+                <!-- navigation-top-right -->
+                <div class="navigation-top-right">
+                    <div class="topBarInLogoArea">
+                        <div class="topBarInLogoAreaCell">
+              <span class="btIconWidget ">
+                <span class="btIconWidgetContent">
+                  <span class="btIconWidgetText"><i class="icon icon-map-marker"></i> <span
+                          class="weather">Kothagiri</span></span>
+                </span>
+              </span>
+                            <span class="btIconWidget btWidgetWithText">
+              <span class="btIconWidgetContent">
+                <span class="btIconWidgetText">Today Weather <span class="weather">{{ temp }}°C</span></span>
+              </span>
+            </span>
+                        </div>
+                        <!-- /topBarInLogoAreaCell -->
+                    </div>
+                </div>
+            </nav>
+            <!-- === navigation-main === -->
+            <nav class="navigation-main clearfix">
+                <!-- logo -->
+                <div class="logo animated fadeIn">
+                    <a href="/">
+                        <img class="logo-desktop" src="{% static 'client/assets/images/logo.png' %}"
+                             alt="Alternate Text">
+                        <img class="logo-mobile" src="{% static 'client/assets/images/logo-mobile.png' %}"
+                             alt="Alternate Text">
+                    </a>
+                </div>
+                <!-- toggle-menu -->
+                <div class="toggle-menu"><i class="icon icon-menu"></i></div>
+                <!-- navigation-block -->
+                <div class="navigation-block clearfix">
+                    <!-- navigation-left -->
+                    <ul class="navigation-left">
+                        <li class="">
+                            <a href="/">Home <span class="open-dropdown"></span></a>
+                        </li>
+                        <li class="">
+                            <a href="/aboutUs">About us <span class="open-dropdown"></span></a>
+                        </li>
+                        <li>
+                            <a href="#">Rooms <span class="open-dropdown"><i class="fa fa-angle-down"></i></span></a>
+                            <ul>
+                                <li><a href="/HomeStay">Home Stay</a></li>
+                                <li><a href="/DeluxeRoom">Deluxe Room</a></li>
+                                <li><a href="/PremiumRoom">Premium Room</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                    <!-- navigation-right -->
+                    <ul class="navigation-right">
+                        <li>
+                            <a href="/facility">Facilities</a>
+                        </li>
+                        <li>
+                            <a href="/contactUs">Contact</a>
+                        </li>
+                        <li class="">
+                            <a href="/bookings">Book Now </a>
+                        </li>
+                    </ul>
+                </div>
+                <!--/navigation-block-->
+            </nav>
+        </div>
+        <!--/container-->
+    </header>
+    <!-- ========================  Header content ======================== -->
+    <section class="frontpage-slider">
+        <div class="owl-slider owl-slider-header owl-slider-fullscreen">
+            <!-- === slide item === -->
+            <div class="item" style="background-image:url({% static 'client/assets/Banner/1.png' %});">
+                <div class="box text-center">
+                    <div class="container">
+                        <h2 class="title animated h1" data-animation="fadeInDown">
+                            A moment of <br/> <span>pure prestige</span>
+                        </h2>
+                        <div class="desc animated" data-animation="fadeInUp">
+                            Lavish social and business events
+                        </div>
+                        <div class="desc animated" data-animation="fadeInUp">
+                            and unforgettable weddings.
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- === slide item === -->
+            <div class="item" style="background-image:url({% static 'client/assets/Banner/2.png' %})">
+                <div class="box text-center">
+                    <div class="container">
+                        <h2 class="title animated h1" data-animation="fadeInDown">
+                            The privacy and <br/>
+                            individuality of a custom
+                        </h2>
+                        <div class="desc animated" data-animation="fadeInUp">
+                            The Residences have their own dedicated private entrance as well <br/>
+                            as an anonymous "celebrity" entrance, for ultimate privacy.
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- === slide item === -->
+            <div class="item" style="background-image:url({% static 'client/assets/Banner/3.png' %})">
+                <div class="box text-center">
+                    <div class="container">
+                        <h2 class="title animated h1" data-animation="fadeInDown">Fairmont managed!</h2>
+                        <div class="desc animated" data-animation="fadeInUp">The elegant Champagne Bar, the stylish
+                            Colina Club.
+                        </div>
+                        <div class="desc animated" data-animation="fadeInUp">Guestrooms and luxurious suites</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--/owl-slider-->
+    </section>
+    <!-- ======================== Booking ======================== -->
+
+    <section class="booking booking-default-theme">
+        <div class="section-header hidden">
+            <div class="container">
+                <h2 class="title">Booking & reservations</h2>
+            </div>
+        </div>
+        <form action="/bookings" method="post">
+            {% csrf_token %}
+            <div class="booking-wrapper">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-xs-12 col-sm-12 col-md-7">
+                            <div class="row">
+                                <!--=== date arrival ===-->
+                                <div class="col-xs-6 col-sm-6">
+                                    <div class="date" id="dateArrival" data-text="Arrival">
+                                        <input class="datepicker" name="FromDate" readonly="readonly"/>
+                                        <div class="date-value"></div>
+                                    </div>
+                                </div>
+                                <!--=== date departure ===-->
+                                <div class="col-xs-6 col-sm-6">
+                                    <div class="date" id="dateDeparture" data-text="Departure">
+                                        <input class="datepicker" name="ToDate" readonly="readonly"/>
+                                        <div class="date-value"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <input hidden name="postCall" value="Home">
+                        <!--=== guests ===-->
+                        <div class="col-xs-4 col-sm-3">
+                            <div class="guests" data-text="Guests">
+                                <div class="result">
+                                    <input class="qty-result" name="GuestQuantity" type="text" value="2" id="qty-result"
+                                           readonly="readonly"/>
+                                    <div class="qty-result-text date-value" id="qty-result-text"></div>
+                                </div>
+                                <!--=== guests list ===-->
+                                <ul class="guest-list">
+                                    <li class="header">
+                                        Please choose number of guests <span class="qty-apply"><i
+                                            class="icon icon-cross"></i></span>
+                                    </li>
+                                    <!--=== adults ===-->
+                                    <li class="clearfix">
+                                        <!--=== Adults value ===-->
+                                        <div>
+                                            <input class="qty-amount" value="2" type="text" id="ticket-adult"
+                                                   data-value="2" readonly="readonly"/>
+                                        </div>
+                                        <div>
+                                            <span>Adults <small>16+ years</small></span>
+                                        </div>
+                                        <!--=== Add/remove quantity buttons ===-->
+                                        <div>
+                                            <input class="qty-btn qty-minus" value="-" type="button"
+                                                   data-field="ticket-adult"/>
+                                            <input class="qty-btn qty-plus" value="+" type="button"
+                                                   data-field="ticket-adult"/>
+                                        </div>
+                                    </li>
+                                    <!--=== chilrens ===-->
+                                    <li class="clearfix">
+                                        <!--=== Adults value ===-->
+                                        <div>
+                                            <input class="qty-amount" value="0" type="text" id="ticket-children"
+                                                   data-value="0" readonly="readonly"/>
+                                        </div>
+                                        <!--=== Label ===-->
+                                        <div>
+                                            <span>Children <small>2-11 years</small></span>
+                                        </div>
+                                        <!--=== Add/remove quantity buttons ===-->
+                                        <div>
+                                            <input class="qty-btn qty-minus" value="-" type="button"
+                                                   data-field="ticket-children"/>
+                                            <input class="qty-btn qty-plus" value="+" type="button"
+                                                   data-field="ticket-children"/>
+                                        </div>
+                                    </li>
+                                    <!--=== Infants ===-->
+                                    <li class="clearfix">
+                                        <!--=== Adults value ===-->
+                                        <div>
+                                            <input class="qty-amount" value="0" type="text" id="ticket-infants"
+                                                   data-value="0" readonly="readonly"/>
+                                        </div>
+                                        <!--=== Label ===-->
+                                        <div>
+                                            <span>Infants <small>Under 2 years</small></span>
+                                        </div>
+                                        <!--=== Add/remove quantity buttons ===-->
+                                        <div>
+                                            <input class="qty-btn qty-minus" value="-" type="button"
+                                                   data-field="ticket-infants"/>
+                                            <input class="qty-btn qty-plus" value="+" type="button"
+                                                   data-field="ticket-infants"/>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <!--=== button ===-->
+                        <div class="col-xs-12 col-sm-2">
+                            <button type="submit" class="btn btn-clean">
+                                Book now
+                            </button>
+                        </div>
+                    </div>
+                    <!--/row-->
+                </div>
+                <!--/booking-wrapper-->
+            </div>
+        </form>
+        <!--/container-->
+    </section>
+    <!-- ========================  Rooms ======================== -->
+    <section class="page">
+        <div class="image-blocks image-blocks-category">
+            <div class="container">
+                <div class="about">
+                    <!--text-block-->
+                    <div class="text-block">
+                        <div class="row">
+                            <div class="col-md-8 col-lg-offset-2">
+                                <h2>About Aeon Hotel</h2>
+                                <p>Nestled among the comforts of a lush 250-acre Tea plantation and surrounded by hills
+                                    on all sides, Aeon is truly a paradise with endless beauty and happiness.The resort
+                                    comprises a total of 3 luxurious rooms each offering incredible views of the tea
+                                    plantations.All the rooms comes along with a balcony facing tea gardens.There are 3
+                                    category of rooms in the property each offering different levels of luxury. <a
+                                            href="/aboutUs" class="text-success"><b>Read More</b></a></p>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="text">
+                                    <!-- ===  Gallery === -->
+                                    <span class="image">
+                           <img src="{% static 'client/assets/images/about-us.jpg' %}">
+                        </span>
+
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="text back">
+                                    <!-- ===  Gallery === -->
+                                    <br>
+                                    <h4 class="text-center">Life, Leisure & Beyond</h4>
+                                    <p>
+                                        A sight of pure splendor, Elk Falls is situated about 7km from Kotagiri near
+                                        Uyilathi Village on the main route to Mettupalayam. The surroundings of the
+                                        falls are equally entrancing as the fall itself, with a European house lying
+                                        near the spot glorifying the British architecture.
+                                    </p>
+                                    <br>
+                                    <p>A visit to the falls during the monsoon season will make you experience a joyous
+                                        sight of Kookal Valley in its all exotic galore and on full bloom.</p>
+                                    <br>
+                                    <br>
+                                </div>
+                            </div>
+                            <!--/col-->
+                        </div>
+                        <!--/row-->
+                    </div>
+                    <!-- === text-card === -->
+                </div>
+                <!--/container-->
+            </div>
+        </div>
+    </section>
+
+    <section class="rooms rooms-widget">
+        <!-- === rooms header === -->
+        <div class="section-header">
+            <div class="container">
+                <h2 class="title text-center">Our Rooms </h2>
+                <p class="text-center text-light">Designed as a privileged almost private place where you'll feel right
+                    at home</p>
+            </div>
+        </div>
+        <!-- === rooms content === -->
+        <div class="container">
+            <div class="owl-rooms owl-theme">
+                <!-- === rooms item === -->
+                <div class="item">
+                    <article>
+                        <div class="image">
+                            <img src="{% static 'client/assets/images/room-1.jpg' %}" alt=""/>
+                        </div>
+                        <div class="details">
+                            <div class="text">
+                                <h3 class="title">Home Stay</h3>
+                                <p>2 Bed Room 1 Hall 1 Kitchen </p>
+                            </div>
+                            <div class="book">
+                                <div>
+                                    <a href="/HomeStay" class="btn btn-main">View Details</a>
+                                </div>
+                                <div>
+                                    <span class="price h4">₹ 8000,00</span>
+                                    <span>One night only</span>
+                                </div>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+                <!-- === rooms item === -->
+                <div class="item">
+                    <article>
+                        <div class="image">
+                            <img src="{% static 'client/assets/images/room-2.jpg' %}" alt=""/>
+                        </div>
+                        <div class="details">
+                            <div class="text">
+                                <h3 class="title">Deluxe Room</h3>
+                                <p>Double room</p>
+                            </div>
+                            <div class="book">
+                                <div>
+                                    <a href="/DeluxeRoom" class="btn btn-main">View Details</a>
+                                </div>
+                                <div>
+                                    <span class="price h4">₹ 2700,00</span>
+                                    <span>per night</span>
+                                </div>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+                <!-- === rooms item === -->
+                <div class="item">
+                    <article>
+                        <div class="image">
+                            <img src="{% static 'client/assets/images/room-3.jpg' %}" alt=""/>
+                        </div>
+                        <div class="details">
+                            <div class="text">
+                                <h3 class="title">Premium Room</h3>
+                                <p>Queen size bed</p>
+                            </div>
+                            <div class="book">
+                                <div>
+                                    <a href="/PremiumRoom" class="btn btn-main">View Details</a>
+                                </div>
+                                <div>
+                                    <span class="price h4">₹ 2500,00</span>
+                                    <span>per night</span>
+                                </div>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+                <!-- === rooms item === -->
+
+            </div>
+            <!--/owl-rooms-->
+        </div>
+        <!--/container-->
+    </section>
+    <!-- ========================  Stretcher widget ======================== -->
+
+
+    <!-- ======================== Image blocks ======================== -->
+    <section class="image-blocks image-blocks-header">
+        <div class="row">
+            <div class="container">
+                <h2 class="title text-center">Nearby Attractions</h2>
+            </div>
+        </div>
+        <div class="container">
+            <!--item block -->
+            <div class="blocks blocks-left">
+                <div class="item">
+                    <div class="text">
+                        <!-- === room info === -->
+                        <h2 class="title">Catherine Water Falls</h2>
+                        <p>
+                            Catherine Falls is a double-cascaded waterfall located in Kotagiri, The Nilgiris District,
+                            Tamil nadu and it is also a major tourist spot in Kotagiri, located on the Mettupalayam road
+                            branching off at Aravenu. The upper fall drops to the floor, and is the second highest in
+                            the Nilgiri mountains. The waters from the upper stream of the Kallar river are crossed by
+                            the invisible Mettupalyam-Ooty road beyond the mountains in the south-west. The height of
+                            water falls is about 250 ft.Catherine Falls is named after the wife of M.D. Cockburn,
+                            believed to have introduced the coffee plantation to Kotagiri. The native name of the
+                            Catherine Falls is Geddhehaada Halla, meaning "Foothills Dale River". It can clearly been
+                            seen from the top of Dolphin's Nose if seeing the entire waterfall as one total impression
+                            is what you are looking for. It is also possible to take a road to the top of the falls.
+                        </p>
+                    </div>
+                    <!--/text-->
+                </div>
+                <!--/item-->
+                <div class="image image-border"
+                     style="background-image:url({% static 'client/assets/images/catherine.jpg' %})">
+                    <img src="{% static 'client/assets/images/catherine.jpg' %}" alt=""/>
+                </div>
+            </div>
+            <!--item block -->
+            <div class="blocks blocks-right">
+                <div class="item">
+                    <div class="text">
+                        <!-- === room info === -->
+                        <h2 class="title">Nilgiri Mountain Railway Line</h2>
+                        <p>
+                            The Nilgiri Mountain Railway is a 1,000 mm metre gauge railway in Tamil Nadu, India, built
+                            by the British in 1908. The railway is operated by the Southern Railway and is the only rack
+                            railway in India. The railway relies on its fleet of steam locomotives. NMR switched to
+                            diesel locomotives on the section between Coonoor and Udhagamandalam. Local people and
+                            visitors led a campaign to return to steam locomotives in this section. In July 2005, UNESCO
+                            added the Nilgiri Mountain Railway as an extension to the World Heritage Site of Darjeeling
+                            Himalayan Railway. The site then became known as Mountain Railways of India.
+                        </p>
+                    </div>
+                </div>
+                <div class="image image-border  "
+                     style="background-image:url({% static 'client/assets/images/nilgiri-mountain-railway.jpg' %})">
+                    <img src="{% static 'client/assets/images/nilgiri-mountain-railway.jpg' %}" alt=""/>
+                </div>
+            </div>
+        </div>
+        <!--/container-->
+    </section>
+
+    <!-- ======================== Quotes ======================== -->
+    <section class="quotes quotes-slider"
+             style="background-image:url({% static 'client/assets/images/testimonial.jpg' %})">
+        <div class="container">
+            <!-- === Quotes header === -->
+            <div class="section-header">
+                <h2 class="title">Testimonials</h2>
+                <p>What other think about us</p>
+            </div>
+            <div class="row">
+                <div class="col-md-8 col-md-offset-2">
+                    <div class="quote-carousel">
+                        <!-- === quoute item === -->
+                        <div class="quote">
+                            <div class="text">
+                                <h4>Jenna Hale, Canada</h4>
+                                <p>Aeon Resort is a very beautiful, calm,peaceful place to learn about India. The sun
+                                    rises were picturesque and awed us each and every morning.</p>
+                            </div>
+                            <div class="more">
+                                <div class="rating">
+                                    <span class="fa fa-star"></span>
+                                    <span class="fa fa-star"></span>
+                                    <span class="fa fa-star"></span>
+                                    <span class="fa fa-star"></span>
+                                    <span class="fa fa-star"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- === quoute item === -->
+                        <div class="quote">
+                            <div class="text">
+                                <h4>Glen Jordan, Cananda</h4>
+                                <p>The location is really good for a pleasant stay. The rooms are spacious, luxurious
+                                    and the view is awesome. The resort is easy to locate and the staff are really
+                                    helpful. They are really doing a great job.</p>
+                            </div>
+                            <div class="more">
+                                <div class="rating">
+                                    <span class="fa fa-star"></span>
+                                    <span class="fa fa-star"></span>
+                                    <span class="fa fa-star"></span>
+                                    <span class="fa fa-star"></span>
+                                    <span class="fa fa-star"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- === quoute item === -->
+                        <div class="quote">
+                            <div class="text">
+                                <h4>Lea Nils</h4>
+                                <p>The staff were friendly, attentive and helpful (if you needed or wanted something, it
+                                    was there) the natural sights and sounds were awesome, awesome, awesome. every
+                                    morning we were up early to watch the awesome, breathtakingly lovely sunrise and
+                                    listen to the birds, animals and some days music in the morning.</p>
+                            </div>
+                            <div class="more">
+                                <div class="rating">
+                                    <span class="fa fa-star"></span>
+                                    <span class="fa fa-star"></span>
+                                    <span class="fa fa-star"></span>
+                                    <span class="fa fa-star"></span>
+                                    <span class="fa fa-star"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- === quoute item === -->
+                    </div>
+                    <!--/quote-carousel-->
+                </div>
+            </div>
+            <!--/row-->
+        </div>
+        <!--/container-->
+    </section>
+
+    <footer class="subscribe">
+        <div class="container">
+            <!--footer links-->
+            <div class="footer-links">
+                <div class="row">
+                    <div class="col-sm-6 footer-left">
+                        <a href="/contactUs">Contact us</a> &nbsp; | &nbsp; <a href="#">Privacy policy</a> | &nbsp; <a
+                            href="#">Guest book</a>
+                    </div>
+                    <div class="col-sm-6 footer-right">
+                        <a href="#">Gallery</a> &nbsp; | &nbsp; <a href="#">Reservations</a> | &nbsp; <a href="#">Help
+                        center</a>
+                    </div>
+                </div>
+            </div>
+            <!--footer social-->
+            <div class="footer-social">
+                <div class="row">
+                    <div class="col-sm-12 text-center hidden">
+                        <a href="" class="footer-logo"><img src="{% static 'client/assets/images/logo.png' %}"
+                                                            alt="Alternate Text"></a>
+                    </div>
+                    <div class="col-sm-12 icons">
+                        <ul>
+                            <li><a href="#"><i class="fa fa-facebook"></i></a></li>
+                            <li><a href="#"><i class="fa fa-twitter"></i></a></li>
+                            <li><a href="#"><i class="fa fa-google-plus"></i></a></li>
+                            <li><a href="#"><i class="fa fa-youtube"></i></a></li>
+                            <li><a href="#"><i class="fa fa-instagram"></i></a></li>
+                        </ul>
+                    </div>
+                    <div class="col-sm-12 copyright">
+                        <small>Copyright © 2020 &nbsp; | &nbsp; Aeson</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+</div>
+<!--/wrapper-->
+
+<!--JS files-->
+<script src="{% static 'client/js/bundle.min.js' %}"></script>
+</body>
+</html>
