@@ -13,6 +13,10 @@ def climaCell_Temperature():
         'x-rapidapi-host': 'climacell-microweather-v1.p.rapidapi.com',
         'x-rapidapi-key': '331beb605emshe23730cae5866ecp1695fdjsn3506622aa61a'
     }
-    response = requests.request('GET', url, headers=headers, params=querystring).json()
 
-    return response['temp']['value']
+    response = requests.request('GET', url, headers=headers, params=querystring).json()
+    try:
+        return response['temp']['value']
+    except Exception as e:
+        print(e)
+        return 18

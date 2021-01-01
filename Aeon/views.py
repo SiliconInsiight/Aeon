@@ -14,7 +14,7 @@ from firebase_admin import credentials, firestore, storage
 import firebase_admin
 import pyrebase
 
-cred = credentials.Certificate(r"FirebaseSDK/aeon-fb9bd-firebase-adminsdk-ywtem-54d8666685.json")
+cred = credentials.Certificate(r"/home/hareesh1996/Aeon/FirebaseSDK/aeon-fb9bd-firebase-adminsdk-ywtem-54d8666685.json")
 firebase_admin.initialize_app(cred)
 
 Config = {
@@ -44,6 +44,11 @@ def date_extractor(date):
     return '-'.join(date_list)
 
 
+def date_objCreate(date):
+    Date = date.split('-')
+    return dt.datetime(int(Date[2]), int(Date[1]), int(Date[0]))
+
+
 temperature = climaCell_Temperature()
 
 
@@ -67,11 +72,11 @@ def booking_pageshow(request):
 
         fromDate = date_extractor(fromDate)
         toDate = date_extractor(toDate)
-        fromDate_obj = fromDate.split('-')
-        toDate_obj = toDate.split('-')
-        fromDATEOBJ = dt.datetime(int(fromDate_obj[2]), int(fromDate_obj[1]), int(fromDate_obj[0]))
-        toDATEOBJ = dt.datetime(int(toDate_obj[2]), int(toDate_obj[1]), int(toDate_obj[0]))
+
+        fromDATEOBJ = date_objCreate(fromDate)
+        toDATEOBJ = date_objCreate(toDate)
         dayDiff = (toDATEOBJ - fromDATEOBJ).days
+
         roomAvailable = []
         RoomObj = db.collection('roomRegister').where('roomStatus', '==', True).stream()
         RegisterObj = db.collection('bookingRegister').where('STATUS', '==', 'TXN_SUCCESS').where('checkedOUT', '==',
@@ -85,9 +90,11 @@ def booking_pageshow(request):
         for i in roomID_All:
             for j in RegisterList:
                 if j['roomID'] == i:
-                    # if not (j['fromDate'] <= fromDate <= toDate <= j['toDate']):
-                    if not (j['fromDate'] <= fromDate <= j['toDate']):
-                        roomAvailable.append(i)
+                    if not (date_objCreate(j['fromDate']) <= date_objCreate(fromDate) < date_objCreate(
+                            toDate) <= date_objCreate(j['toDate'])):
+                        if not (date_objCreate(fromDate) < date_objCreate(j['fromDate']) < date_objCreate(toDate)):
+                            if not (date_objCreate(fromDate) < date_objCreate(j['toDate']) < date_objCreate(toDate)):
+                                roomAvailable.append(i)
 
         temp_List = []
         for i in RegisterList:
@@ -207,7 +214,7 @@ def payment_check(request):
             'INDUSTRY_TYPE_ID': 'Retail',
             'WEBSITE': 'WEBSTAGING',
             'CHANNEL_ID': 'WEB',
-            'CALLBACK_URL': 'http://127.0.0.1:8000/handlerequest/',
+            'CALLBACK_URL': 'https://hareesh1996.pythonanywhere.com/handlerequest/',
         }
         param_dict['CHECKSUMHASH'] = Checksum.generate_checksum(param_dict, MERCHANT_KEY)
 
